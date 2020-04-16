@@ -1,13 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { connect } from 'react-redux';
+import { signIn } from '../../../redux/actions/authActions';
 
 const LoginScreen = (props) => {
-    console.log(props)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <View style={styles.container}>
-      <Text>LoginScreen</Text>
-    </View>
+      <>
+      <Text>Login</Text>
+
+      <TextInput placeholder="Digite seu email" value={email} onChangeText={setEmail}
+      autoCapitalize='none' autoCorrect={false} style={styles.textInputStyle}/>
+      
+      <TextInput placeholder="Digite sua senha" value={password} onChangeText={setPassword}
+      autoCapitalize='none' autoCorrect={false} secureTextEntry={true} style={styles.textInputStyle}/>
+
+      <Button title="Log In" onPress={() => props.signIn({ email, password})} />
+      </>
   );
 }
 
@@ -26,5 +37,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    null
+    { signIn }
 )(LoginScreen)

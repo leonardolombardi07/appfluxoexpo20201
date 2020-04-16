@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
+import { tryLocalSignIn } from '../../../redux/actions/authActions';
 
 const SplashScreen = (props) => {
-    console.log(props)
+
+  useEffect(() => {
+    props.tryLocalSignIn();
+  },[])
+
   return (
     <View style={styles.container}>
       <Text>SplashScreen</Text>
@@ -14,7 +19,7 @@ const SplashScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -26,5 +31,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
     mapStateToProps,
-    null
+    { tryLocalSignIn }
 )(SplashScreen)
