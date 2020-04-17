@@ -11,8 +11,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
   //LoggedOut
 import SplashScreen from './src/screens/LoggedOut/SplashScreen';
 import LoginScreen from './src/screens/LoggedOut/LoginScreen';
+import ResetPasswordScreen from './src/screens/LoggedOut/ResetPasswordScreen';
   //LoggedIn
 import HomeScreen from './src/screens/LoggedIn/HomeScreen';
+import UtilidadesScreen from './src/screens/LoggedIn/UtilidadesScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -31,6 +33,7 @@ const AppNavigator = () => {
       <NavigationContainer>
         <AuthStack.Navigator>
           <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
+          <AuthStack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
         </AuthStack.Navigator>
       </NavigationContainer>
     )
@@ -40,6 +43,7 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Drawer.Navigator>
         <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+        <Drawer.Screen name="UtilidadesScreen" component={UtilidadesScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   )

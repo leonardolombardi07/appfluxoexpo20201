@@ -1,12 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { connect } from 'react-redux';
+import useApiData from '../../../hooks/useApiData';
+import LoadingIndicator from '../../../components/LoadingIndicator';
+import ShowError from '../../../components/ShowError';
 
-const HomeScreen = (props) => {
-    console.log(props)
+export default function HomeScreen(props) {
+  const [results, errorMessage] = useApiData('GERAL');
+
+  if (!results && !errorMessage) {
+    return <LoadingIndicator />
+  };
+
+  if (errorMessage) {
+    console.log("hi")
+    return <ShowError errorMessage={errorMessage}/>
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>HomeScreen</Text>
     </View>
   );
 }
@@ -14,18 +26,9 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'lightgrey',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
 
-const mapStateToProps = (state) => {
-    console.log(state.dummy)
-    return { dummy: state.dummy };
-}
-
-export default connect(
-    mapStateToProps,
-    null
-)(HomeScreen)

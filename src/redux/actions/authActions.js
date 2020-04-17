@@ -37,7 +37,6 @@ export const tryLocalSignIn = () => async (dispatch) => {
 }
 
 export const signIn = ({ email, password }) => async (dispatch) => {
-    console.log({ email, password})
     try {
         const json = JSON.stringify({ email: email, password: password });
         const response = await HerokuApiPost.post ('/auth/', json);
