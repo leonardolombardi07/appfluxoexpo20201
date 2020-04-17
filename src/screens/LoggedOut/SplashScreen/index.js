@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { tryLocalSignIn } from '../../../redux/actions/authActions';
 
@@ -11,7 +11,11 @@ const SplashScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text>SplashScreen</Text>
+      <Image
+            style={styles.logo}
+            source={require('../../../assets/logos/skull.png')}
+            resizeMode='cover'
+      />
     </View>
   );
 }
@@ -19,10 +23,13 @@ const SplashScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+      backgroundColor: '#F5F5F5',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logo: {
+    flex: 1
+  }
 });
 
 const mapStateToProps = (state) => {

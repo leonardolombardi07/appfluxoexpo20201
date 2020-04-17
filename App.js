@@ -26,7 +26,7 @@ const AppNavigator = () => {
 export default function App() {
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor="orange" barStyle='dark-content' />
+      <StatusBar backgroundColor="orange" barStyle='light-content' />
       <AppNavigator />
     </Provider>
   )

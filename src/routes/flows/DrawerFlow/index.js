@@ -33,8 +33,6 @@ import { screenWidth, screenHeight } from '../../../constants/dimensions';
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/authActions';
 
-import Teste from '../../../screens/Teste';
-
 
 const CustomDrawerContent = (props) => {
     return (
@@ -76,7 +74,6 @@ export const DrawerFlow = () => {
                     drawerIcon: () => <HomeIcon />,
                 }}
             />
-              <Drawer.Screen name="teste" component={Teste} />
             <Drawer.Screen 
                 name="Utilidades" 
                 component={UtilidadesStackFlow}

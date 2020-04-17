@@ -6,12 +6,12 @@ export const tryLocalSignIn = () => async (dispatch) => {
     const refresh_token = await AsyncStorage.getItem('refresh_token');
     if (refresh_token) {
         const endPoint = `https://podio.com/oauth/token?grant_type=refresh_token&client_id=appfluxo&client_secret=snwczBivL56WeU2tHeA4oSPoxuOo0BL9VnmmWTOuESZ3x1m0VrDbPrj7bfBTzQEL&refresh_token=${refresh_token}`
-
+        
         try {
            const response = await HerokuApiPost.post(endPoint);
            await AsyncStorage.setItem('access_token', response.data.access_token);
            await AsyncStorage.setItem('refresh_token', response.data.refresh_token);
-
+           
 
            dispatch({ 
                type: TRY_LOCAL_SIGN_IN,
@@ -23,7 +23,8 @@ export const tryLocalSignIn = () => async (dispatch) => {
              })
         } catch (error) {
             alert(error.message)
-        }
+        };
+
     } else {
         // console.log("tryLocalSignIN em authActions chamada: não há refresh_token")
         dispatch({ 
@@ -41,7 +42,6 @@ export const signIn = ({ email, password }) => async (dispatch) => {
     try {
         const json = JSON.stringify({ email: email, password: password });
         const response = await HerokuApiPost.post ('/auth/', json);
-        console.log(response.data)
         await AsyncStorage.setItem ("access_token", response.data.access_token);
         await AsyncStorage.setItem ("refresh_token", response.data.refresh_token);
         dispatch ({ 
