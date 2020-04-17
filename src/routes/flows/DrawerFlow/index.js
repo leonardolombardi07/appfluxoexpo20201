@@ -28,10 +28,12 @@ import {
     QABIcon 
 } from '../../assets/Icons/DrawerMenuIcons';
 //Styling
-import { screenWidth } from '../../../constants/dimensions';
+import { screenWidth, screenHeight } from '../../../constants/dimensions';
 //Redux for logout
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/authActions';
+
+import Teste from '../../../screens/Teste';
 
 
 const CustomDrawerContent = (props) => {
@@ -39,6 +41,7 @@ const CustomDrawerContent = (props) => {
         <DrawerContentScrollView {...props}>
             <DrawerHeader />
             <DrawerItemList
+            itemStyle={{height: screenHeight * 0.05, justifyContent: 'center'}}
             labelStyle={{color: 'black', fontWeight: '700', fontSize: screenWidth * 0.04}}
             {...props} />
             <DrawerItem 
@@ -61,9 +64,6 @@ export const DrawerFlow = () => {
         <Drawer.Navigator
             drawerType='front'
             drawerContent={props => <ReduxCustomDrawerContent {...props} />} 
-
-
-
             drawerContentOptions={{
                 activeTintColor: 'orange',
                 backgroundColor: '#F5F5F5'
@@ -76,6 +76,7 @@ export const DrawerFlow = () => {
                     drawerIcon: () => <HomeIcon />,
                 }}
             />
+              <Drawer.Screen name="teste" component={Teste} />
             <Drawer.Screen 
                 name="Utilidades" 
                 component={UtilidadesStackFlow}
