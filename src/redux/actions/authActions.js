@@ -41,6 +41,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
     try {
         const json = JSON.stringify({ email: email, password: password });
         const response = await HerokuApiPost.post ('/auth/', json);
+        console.log(response.data)
         await AsyncStorage.setItem ("access_token", response.data.access_token);
         await AsyncStorage.setItem ("refresh_token", response.data.refresh_token);
         dispatch ({ 

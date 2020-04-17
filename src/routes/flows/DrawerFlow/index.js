@@ -19,6 +19,7 @@ import PROScreen from '../../../screens/LoggedIn/PROScreen';
 import QABScreen from '../../../screens/LoggedIn/QABScreen';
 //Assets
 import MainHeaderButton from '../../assets/MainHeader/MainHeaderButton';
+import DrawerHeader from '../../assets/DrawerNavigation/DrawerHeader';
 import { 
     HomeIcon, 
     UtilidadesIcon, 
@@ -27,6 +28,7 @@ import {
     PROIcon,
     QABIcon 
 } from '../../assets/Icons/DrawerMenuIcons';
+//Styling
 import { screenWidth } from '../../../constants/dimensions';
 //Redux for logout
 import { connect } from 'react-redux';
@@ -36,7 +38,7 @@ const MainHeader = createStackNavigator();
 export const MainFlow = () => {
     return (
         <NavigationContainer ref={navigationRef}>
-        <MainHeader.Navigator 
+        <MainHeader.Navigator
             screenOptions={{
                 headerStyle: {
                     backgroundColor: 'black'
@@ -50,6 +52,7 @@ export const MainFlow = () => {
             <MainHeader.Screen 
             name="Fluxo" 
             component={DrawerFlow}
+            // options={({ route }) => console.log(route.params)}
             />
         </MainHeader.Navigator>
         </NavigationContainer>
@@ -60,8 +63,8 @@ export const MainFlow = () => {
 
 const CustomDrawerContent = (props) => {
     return (
-        <DrawerContentScrollView 
-        {...props}>
+        <DrawerContentScrollView {...props}>
+            <DrawerHeader />
             <DrawerItemList
             labelStyle={{color: 'black', fontWeight: '700', fontSize: screenWidth * 0.04}}
             {...props} />
@@ -83,10 +86,12 @@ const Drawer = createDrawerNavigator();
 export const DrawerFlow = () => {
     return (
         <Drawer.Navigator
+            
             drawerType='slide'
             drawerContent={props => <ReduxCustomDrawerContent {...props} />}
             drawerContentOptions={{
                 activeTintColor: 'orange',
+                backgroundColor: '#F5F5F5'
             }}
         >
             <Drawer.Screen 
@@ -114,7 +119,7 @@ export const DrawerFlow = () => {
                 name="CEL" 
                 component={CELScreen}
                 options={{
-                    drawerIcon: () => <CELIcon />
+                    drawerIcon: () => <CELIcon />,
                 }}
             />
             <Drawer.Screen 

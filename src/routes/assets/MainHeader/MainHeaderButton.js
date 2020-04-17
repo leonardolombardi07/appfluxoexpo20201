@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,9 +6,10 @@ import { screenWidth } from '../../../constants/dimensions';
 
 export default function MainHeaderButton()  {
     const navigation = useNavigation();
+
     return (
         <TouchableOpacity 
-            onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             style={styles.headerButtonStyle}
         >
             <Ionicons name="md-menu" size={35} color="orange" />
