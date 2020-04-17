@@ -10,7 +10,7 @@ const AuthStack = createStackNavigator();
 export const AuthStackFlow = () => {
     return (
         <NavigationContainer ref={navigationRef}>
-        <AuthStack.Navigator>
+        <AuthStack.Navigator screenOptions={{headerShown: false}}>
           <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
           <AuthStack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
         </AuthStack.Navigator>

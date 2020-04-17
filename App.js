@@ -6,10 +6,11 @@ import { useSelector } from 'react-redux';
 //Navigation Flows
 import SplashScreen from './src/screens/LoggedOut/SplashScreen';
 import { AuthStackFlow } from './src/routes/flows/AuthStackFlow';
-import { DrawerFlow } from './src/routes/flows/DrawerFlow';
+import { MainFlow } from './src/routes/flows/DrawerFlow';
 
 const AppNavigator = () => {
   const { loadingAccessToken, access_token } = useSelector(state => state.authData);
+  console.log(access_token)
 
   if (loadingAccessToken) {
     return <SplashScreen />
@@ -19,7 +20,7 @@ const AppNavigator = () => {
     return <AuthStackFlow />
   };
   
-  return <DrawerFlow />
+  return <MainFlow />
 };
 
 export default function App() {

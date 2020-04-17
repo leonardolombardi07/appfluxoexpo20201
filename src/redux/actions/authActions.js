@@ -12,6 +12,7 @@ export const tryLocalSignIn = () => async (dispatch) => {
            await AsyncStorage.setItem('access_token', response.data.access_token);
            await AsyncStorage.setItem('refresh_token', response.data.refresh_token);
 
+
            dispatch({ 
                type: TRY_LOCAL_SIGN_IN,
                payload: {
@@ -43,7 +44,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
         await AsyncStorage.setItem ("access_token", response.data.access_token);
         await AsyncStorage.setItem ("refresh_token", response.data.refresh_token);
         dispatch ({ 
-            type: 'SIGN_IN', 
+            type: SIGN_IN, 
             payload: { 
             access_token: response.data.access_token, 
             refresh_token: response.data.refresh_token
