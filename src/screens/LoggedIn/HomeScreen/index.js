@@ -5,16 +5,7 @@ import LoadingIndicator from '../../../components/LoadingIndicator';
 import ShowError from '../../../components/ShowError';
 
 export default function HomeScreen(props) {
-  const [results, errorMessage] = useApiData('GERAL');
-  // console.log(props.navigation)
-  console.log(props.route.name)
-
-  // const changeNavigation = () => {
-  //   props.navigation.setOptions({ title: 'Hi' })
-  // }
-  // useEffect(() => {
-  //   changeNavigation();
-  // }, [])
+  const [results, errorMessage] = useApiData('HOME');
 
   if (!results && !errorMessage) {
     return <LoadingIndicator />
@@ -23,7 +14,7 @@ export default function HomeScreen(props) {
   if (errorMessage) {
     return <ShowError errorMessage={errorMessage}/>
   }
-
+  
   return (
     <View style={styles.container}>
       <Text>HomeScreen</Text>

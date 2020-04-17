@@ -1,6 +1,6 @@
 export default function convertCoordNameToEndPoint (coord_name) {
     switch (coord_name) {
-        case 'GERAL':
+        case 'HOME':
             return '/fluxo/';
         case 'CCE':
             return '/coordenacoes/1/';

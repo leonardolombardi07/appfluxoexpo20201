@@ -12,13 +12,14 @@ export default function MainHeaderButton()  {
             onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
             style={styles.headerButtonStyle}
         >
-            <Ionicons name="md-menu" size={35} color="orange" />
+            <Ionicons name="md-menu" size={screenWidth * 0.088} color="orange" />
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     headerButtonStyle: {
-        marginLeft: screenWidth * 0.03
+        marginLeft: screenWidth * 0.05,
+        marginRight: screenWidth * 0.06
     }
 })

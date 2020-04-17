@@ -7,18 +7,17 @@ import {
     DrawerItemList,
     DrawerItem 
 } from '@react-navigation/drawer';
-import { createStackNavigator } from '@react-navigation/stack';
 import { navigationRef } from '../../navigationFunctions/RootNavigation';
-//Screens
-import HomeScreen from '../../../screens/LoggedIn/HomeScreen';
-import UtilidadesScreen from '../../../screens/LoggedIn/UtilidadesScreen';
-import CCEScreen from '../../../screens/LoggedIn/CCEScreen';
-import CELScreen from '../../../screens/LoggedIn/CELScreen';
-import MNPScreen from '../../../screens/LoggedIn/MNPScreen';
-import PROScreen from '../../../screens/LoggedIn/PROScreen';
-import QABScreen from '../../../screens/LoggedIn/QABScreen';
+import { 
+    HomeStackFlow,
+    UtilidadesStackFlow,
+    CCEStackFlow,
+    CELStackFlow,
+    MNPStackFlow,
+    PROStackFlow,
+    QABStackFlow
+} from '../StacksFlow';
 //Assets
-import MainHeaderButton from '../../assets/MainHeader/MainHeaderButton';
 import DrawerHeader from '../../assets/DrawerNavigation/DrawerHeader';
 import { 
     HomeIcon, 
@@ -34,32 +33,6 @@ import { screenWidth } from '../../../constants/dimensions';
 import { connect } from 'react-redux';
 import { signOut } from '../../../redux/actions/authActions';
 
-const MainHeader = createStackNavigator();
-export const MainFlow = () => {
-    return (
-        <NavigationContainer ref={navigationRef}>
-        <MainHeader.Navigator
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: 'black'
-                },
-                headerTitleStyle: {
-                    color: 'white'
-                },
-                headerLeft: () => <MainHeaderButton />
-            }}
-        >
-            <MainHeader.Screen 
-            name="Fluxo" 
-            component={DrawerFlow}
-            // options={({ route }) => console.log(route.params)}
-            />
-        </MainHeader.Navigator>
-        </NavigationContainer>
-    )
-}
-
-
 
 const CustomDrawerContent = (props) => {
     return (
@@ -70,7 +43,10 @@ const CustomDrawerContent = (props) => {
             {...props} />
             <DrawerItem 
                 label="Sair"
-                labelStyle={{color: 'red', fontWeight: '700', fontSize: screenWidth * 0.05}}
+                labelStyle={{
+                    color: 'red', fontWeight: '700', 
+                    fontSize: screenWidth * 0.05, marginTop: screenWidth*0.03,
+                }}
                 onPress={() => props.signOut()} 
             />
         </DrawerContentScrollView>
@@ -78,17 +54,16 @@ const CustomDrawerContent = (props) => {
 };
 const ReduxCustomDrawerContent = connect(null,{ signOut })(CustomDrawerContent);
 
-
-
-
-
 const Drawer = createDrawerNavigator();
 export const DrawerFlow = () => {
     return (
+        <NavigationContainer ref={navigationRef}>
         <Drawer.Navigator
-            
-            drawerType='slide'
-            drawerContent={props => <ReduxCustomDrawerContent {...props} />}
+            drawerType='front'
+            drawerContent={props => <ReduxCustomDrawerContent {...props} />} 
+
+
+
             drawerContentOptions={{
                 activeTintColor: 'orange',
                 backgroundColor: '#F5F5F5'
@@ -96,53 +71,54 @@ export const DrawerFlow = () => {
         >
             <Drawer.Screen 
                 name="Home" 
-                component={HomeScreen} 
+                component={HomeStackFlow} 
                 options={{
                     drawerIcon: () => <HomeIcon />,
                 }}
             />
             <Drawer.Screen 
                 name="Utilidades" 
-                component={UtilidadesScreen}
+                component={UtilidadesStackFlow}
                 options={{
                     drawerIcon: () => <UtilidadesIcon />,
                 }}
             />
             <Drawer.Screen 
                 name="CCE" 
-                component={CCEScreen}
+                component={CCEStackFlow}
                 options={{
                     drawerIcon: () => <CCEIcon />
                 }}
             />
             <Drawer.Screen 
                 name="CEL" 
-                component={CELScreen}
+                component={CELStackFlow}
                 options={{
                     drawerIcon: () => <CELIcon />,
                 }}
             />
             <Drawer.Screen 
                 name="MNP" 
-                component={MNPScreen}
+                component={MNPStackFlow}
                 options={{
                     drawerIcon: () => <MNPIcon />
                 }}
             />
             <Drawer.Screen 
                 name="PRO" 
-                component={PROScreen}
+                component={PROStackFlow}
                 options={{
                     drawerIcon: () => <PROIcon />
                 }}
             />
             <Drawer.Screen 
                 name="QAB" 
-                component={QABScreen}
+                component={QABStackFlow}
                 options={{
                     drawerIcon: () => <QABIcon />
                 }}
             />
         </Drawer.Navigator>
+        </NavigationContainer>
     );
 };

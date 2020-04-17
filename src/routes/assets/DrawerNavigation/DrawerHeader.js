@@ -41,7 +41,7 @@ export default function DrawerHeader(props) {
                 />
                 }
             </View>
-            <Text style={styles.usernameTextStyle}>Seja bem-vindo, {"\n"}           {username}</Text>
+            <Text style={styles.usernameTextStyle}>Seja bem-vindx, {"\n"}           {username}</Text>
         </View>
     )
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function CELScreen(props) {
 
+export default function CELScreen(props) {
   return (
     <View style={styles.container}>
       <Text>CELScreen</Text>
