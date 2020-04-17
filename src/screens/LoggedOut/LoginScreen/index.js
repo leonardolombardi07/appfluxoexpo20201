@@ -63,7 +63,7 @@ const LoginScreen = (props) => {
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity >
                 <Text>
                     Esqueci minha senha
                 </Text>
