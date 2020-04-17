@@ -9,7 +9,7 @@ import {
     KeyboardAvoidingView,
     SafeAreaView
   } from 'react-native';
-  import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { signIn } from '../../../redux/actions/authActions';
 import { screenWidth, screenHeight } from '../../../constants/dimensions';
 
