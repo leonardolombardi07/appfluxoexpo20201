@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import { StyleSheet, View, ScrollView, Alert, RefreshControl } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, View, ScrollView, Alert, RefreshControl, Text } from 'react-native';
 //Redux
 import { connect } from 'react-redux';
-import { checkPlantaoStatus } from '../../../redux/actions/plantaoActions';
+import { checkPlantaoStatus, abrirPlantao } from '../../../redux/actions/plantaoActions';
 //Components
 import LargeCard from '../../../components/LargeCard';
 import SmallCard from '../../../components/SmallCard';
@@ -14,6 +14,14 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../constants/colors';
 const UtilidadesScreen = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  useEffect(() => {
+    props.checkPlantaoStatus();
+  },[])
+
+  const handlePlantao = () => {
+    props.navigation.navigate('QRCodeScreen');
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView 
@@ -22,10 +30,9 @@ const UtilidadesScreen = (props) => {
           <RefreshControl
             refreshing={isRefreshing}
             onRefresh={() => {
-                console.log('refreshing')
+                props.checkPlantaoStatus();
                 setIsRefreshing(true)
                 setTimeout(() => {
-                  console.log('finished refreshing')
                   setIsRefreshing(false)
                 }, 2000);
             }} />
@@ -35,13 +42,13 @@ const UtilidadesScreen = (props) => {
         cardTitle="Plantao" 
         cardSubTitle="e Plantonistas"
         icon={<Ionicons name='md-person' size={screenWidth * 0.16 } color={SECONDARY_COLOR} />}
+        withStatus={true}
+        status={props.statusPlantao}
         firstButtonTitle="CHECAR HISTÓRICO"
         secondButtonTitle="ABRIR PLANTÃO"
         firstButtonOnPress={() => console.log("1")}
-        secondButtonOnPress={() => console.log("2")}
+        secondButtonOnPress={handlePlantao}
       />
-
-
 
       <LargeCard 
         cardTitle="Agenda" 
@@ -52,7 +59,6 @@ const UtilidadesScreen = (props) => {
         firstButtonOnPress={() => console.log("1")}
         secondButtonOnPress={() => console.log("2")}
       />
-      
       
       <View style={styles.smallCardsContainer}>
         <SmallCard 
@@ -112,11 +118,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { plantaoData: state.plantaoData };
+  return { statusPlantao: state.plantaoData };
 };
 
 export default connect(
   mapStateToProps,
-  { checkPlantaoStatus }
+  { checkPlantaoStatus, abrirPlantao }
 )(UtilidadesScreen);
 

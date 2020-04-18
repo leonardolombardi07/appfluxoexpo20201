@@ -4,7 +4,6 @@ import { PRIMARY_COLOR_LIGHT, PRIMARY_COLOR_DARK } from '../constants/colors';
 import { screenWidth, screenHeight } from '../constants/dimensions';
 import PrimaryButton from './PrimaryButton';
 
-
 export default function LargeCard(props) {
     return (
         <View style={styles.cardContainer}>
@@ -13,8 +12,19 @@ export default function LargeCard(props) {
                 {props.icon}
             </View>
             <View style={styles.footerContainer}>
-                <PrimaryButton buttonTitle={props.firstButtonTitle} onPress={props.firstButtonOnPress}/>
-                <PrimaryButton buttonTitle={props.secondButtonTitle} onPress={props.secondButtonOnPress} />
+                { props.withStatus ? 
+                <Text style={styles.buttonTitleStyle}>
+                    {props.status === null ? "SEM PLANTAO" : props.status}
+                </Text> :
+                <PrimaryButton 
+                buttonTitle={props.firstButtonTitle} 
+                onPress={props.firstButtonOnPress}
+                />
+                }
+                <PrimaryButton 
+                    buttonTitle={props.secondButtonTitle} 
+                    onPress={props.secondButtonOnPress} 
+                />
             </View>
         </View>
     );
@@ -51,5 +61,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         borderBottomLeftRadius: screenHeight * 0.025,
         borderBottomRightRadius: screenHeight * 0.025
+    },
+    buttonTitleStyle: {
+        textAlign: 'center',
     }
 })

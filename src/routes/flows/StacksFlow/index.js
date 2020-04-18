@@ -1,8 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainHeaderButton from '../../assets/MainHeader/MainHeaderButton';
-
-
 const HomeStack = createStackNavigator();
 const UtilidadesStack = createStackNavigator();
 const CCEStack = createStackNavigator();
@@ -12,6 +10,7 @@ const PROStack = createStackNavigator();
 const QABStack = createStackNavigator();
 import HomeScreen from '../../../screens/LoggedIn/HomeScreen';
 import UtilidadesScreen from '../../../screens/LoggedIn/UtilidadesScreen';
+import QRCodeScreen from '../../../screens/LoggedIn/UtilidadesScreen/QRCodeScreen';
 import CCEScreen from '../../../screens/LoggedIn/CCEScreen';
 import CELScreen from '../../../screens/LoggedIn/CELScreen';
 import MNPScreen from '../../../screens/LoggedIn/MNPScreen';
@@ -33,13 +32,22 @@ export const HomeStackFlow = () => {
 
 export const UtilidadesStackFlow = () => {
     return (
-        <UtilidadesStack.Navigator 
+        <UtilidadesStack.Navigator
+            
             screenOptions={{
             headerStyle: {backgroundColor: 'black'},
             headerTitleStyle: {color: 'white'},
             headerLeft: () => <MainHeaderButton />
         }}>
             <UtilidadesStack.Screen name="Utilidades" component={UtilidadesScreen} />
+            <UtilidadesStack.Screen 
+                name="QRCodeScreen" 
+                component={QRCodeScreen}
+                
+                options={{
+                    headerShown: false,
+                }}    
+            />
         </UtilidadesStack.Navigator>
     )
 };

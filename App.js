@@ -1,5 +1,4 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
 //Redux
 import { Provider } from 'react-redux';
 import store from './src/redux/store';
@@ -26,7 +25,6 @@ const AppNavigator = () => {
 export default function App() {
   return (
     <Provider store={store}>
-      <StatusBar backgroundColor="orange" barStyle='dark-content' />
       <AppNavigator />
     </Provider>
   )

@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { 
@@ -56,9 +57,10 @@ const CustomDrawerContent = (props) => {
 const ReduxCustomDrawerContent = connect(null,{ signOut })(CustomDrawerContent);
 
 const Drawer = createDrawerNavigator();
-export const DrawerFlow = () => {
+export const DrawerFlow = (props) => {
     return (
         <NavigationContainer ref={navigationRef}>
+        <StatusBar backgroundColor="orange" barStyle='dark-content' />
         <Drawer.Navigator
             drawerType='front'
             drawerContent={props => <ReduxCustomDrawerContent {...props} />} 
