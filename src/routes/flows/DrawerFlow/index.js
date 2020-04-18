@@ -64,7 +64,10 @@ export const DrawerFlow = () => {
             drawerContent={props => <ReduxCustomDrawerContent {...props} />} 
             drawerContentOptions={{
                 activeTintColor: 'orange',
-                backgroundColor: '#F5F5F5'
+                backgroundColor: '#F5F5F5',
+                itemStyle: {
+                    // alignItems: 'center'
+                }
             }}
         >
             <Drawer.Screen 

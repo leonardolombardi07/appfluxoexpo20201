@@ -9,7 +9,7 @@ import {
 
 
 export const checkPlantaoStatus = () => async (dispatch) => {
-    alert("CheckPlantaoStatus foi chamada")
+    // alert("CheckPlantaoStatus foi chamada")
     const currentTime = new Date(); //Verficar horario atual (convert newDate to minutes)
 
     if (currentTime.getMinutes() > 20 && currentTime.getMinutes() < 50) {
@@ -86,7 +86,7 @@ export const abrirPlantao = () => async (dispatch) => {
         // importante: devemos usar o "data", url passado pelo QR code, para evitar que as
         // pessoas marquem plantao com qualquer qr code
         try {
-            let postID = convertHourToPlantaoPostId();
+            let postID = convertHourToPlantaoId();
             const json = JSON.stringify({ primeiro_plantao: postID, segundo_plantao: null }) // lidar com marcação de dois plantoes
             const response = HerokuApiPostAuth.post('/plantao/', json)
             dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'aberto' })
