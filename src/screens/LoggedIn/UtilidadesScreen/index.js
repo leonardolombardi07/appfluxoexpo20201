@@ -57,7 +57,7 @@ const UtilidadesScreen = (props) => {
         firstButtonTitle="VISUALIZAR AGENDA"
         secondButtonTitle="AGENDAR REUNIÃO"
         firstButtonOnPress={() => props.navigation.navigate('Agenda')}
-        secondButtonOnPress={() => console.log("2")}
+        secondButtonOnPress={() => props.navigation.navigate('MarcarReuniaoScreen')}
       />
       
       <View style={styles.smallCardsContainer}>

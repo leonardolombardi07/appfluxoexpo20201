@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, Alert } from 'react-native';
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { 
@@ -49,7 +49,18 @@ const CustomDrawerContent = (props) => {
                     color: 'red', fontWeight: '700', 
                     fontSize: screenWidth * 0.05, marginTop: screenWidth*0.03,
                 }}
-                onPress={() => props.signOut()} 
+                onPress={
+                    () => 
+                    Alert.alert(
+                        "Você deseja mesmo sair?",
+                        "Vamos sentir sua falta /:",
+                        [
+                            { text: "Não", style: 'cancel'},
+                            { text: "Sim", onPress: () =>  props.signOut(), style: 'default'}
+                        ],
+                        {cancelable: true}
+                    )
+                } 
             />
         </DrawerContentScrollView>
     );

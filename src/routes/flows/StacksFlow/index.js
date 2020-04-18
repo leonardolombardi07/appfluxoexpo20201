@@ -14,6 +14,7 @@ import HomeScreen from '../../../screens/LoggedIn/HomeScreen';
 import UtilidadesScreen from '../../../screens/LoggedIn/UtilidadesScreen';
 import QRCodeScreen from '../../../screens/LoggedIn/UtilidadesScreen/QRCodeScreen';
 import AgendaScreen from '../../../screens/LoggedIn/UtilidadesScreen/AgendaScreen';
+import MarcarReuniaoScreen from '../../../screens/LoggedIn/UtilidadesScreen/AgendaScreen/MarcarReuniaoScreen';
 import CCEScreen from '../../../screens/LoggedIn/CCEScreen';
 import CELScreen from '../../../screens/LoggedIn/CELScreen';
 import MNPScreen from '../../../screens/LoggedIn/MNPScreen';
@@ -57,6 +58,14 @@ export const UtilidadesStackFlow = () => {
                 
                 options={{
                    headerLeft: () => <MainHeaderBackButton />
+                }}    
+            />
+            <UtilidadesStack.Screen 
+                name="MarcarReuniaoScreen" 
+                component={MarcarReuniaoScreen}
+                
+                options={{
+                   headerShown: false
                 }}    
             />
         </UtilidadesStack.Navigator>
