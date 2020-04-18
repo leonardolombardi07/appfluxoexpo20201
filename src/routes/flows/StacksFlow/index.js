@@ -1,6 +1,8 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainHeaderButton from '../../assets/MainHeader/MainHeaderButton';
+import MainHeaderBackButton from '../../assets/MainHeader/MainHeaderBackButton';
 const HomeStack = createStackNavigator();
 const UtilidadesStack = createStackNavigator();
 const CCEStack = createStackNavigator();
@@ -11,6 +13,7 @@ const QABStack = createStackNavigator();
 import HomeScreen from '../../../screens/LoggedIn/HomeScreen';
 import UtilidadesScreen from '../../../screens/LoggedIn/UtilidadesScreen';
 import QRCodeScreen from '../../../screens/LoggedIn/UtilidadesScreen/QRCodeScreen';
+import AgendaScreen from '../../../screens/LoggedIn/UtilidadesScreen/AgendaScreen';
 import CCEScreen from '../../../screens/LoggedIn/CCEScreen';
 import CELScreen from '../../../screens/LoggedIn/CELScreen';
 import MNPScreen from '../../../screens/LoggedIn/MNPScreen';
@@ -46,6 +49,14 @@ export const UtilidadesStackFlow = () => {
                 
                 options={{
                     headerShown: false,
+                }}    
+            />
+            <UtilidadesStack.Screen 
+                name="Agenda" 
+                component={AgendaScreen}
+                
+                options={{
+                   headerLeft: () => <MainHeaderBackButton />
                 }}    
             />
         </UtilidadesStack.Navigator>

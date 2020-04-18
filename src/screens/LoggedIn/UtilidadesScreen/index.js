@@ -56,7 +56,7 @@ const UtilidadesScreen = (props) => {
         icon={<AntDesign name='calendar' size={screenWidth * 0.16 } color={SECONDARY_COLOR} />}
         firstButtonTitle="VISUALIZAR AGENDA"
         secondButtonTitle="AGENDAR REUNIÃO"
-        firstButtonOnPress={() => console.log("1")}
+        firstButtonOnPress={() => props.navigation.navigate('Agenda')}
         secondButtonOnPress={() => console.log("2")}
       />
       

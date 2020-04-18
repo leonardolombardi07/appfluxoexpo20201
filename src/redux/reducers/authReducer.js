@@ -6,7 +6,7 @@ const initialState = {
     refresh_token: null, 
 }
 
-export default function (state=initialState, action) {
+export default function (state = initialState, action) {
     switch (action.type) {
         case TRY_LOCAL_SIGN_IN:
             return {
@@ -29,5 +29,5 @@ export default function (state=initialState, action) {
             };
         default:
             return state;
-    }
-}
+    };
+};
