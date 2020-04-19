@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text, Modal  } from 'react-native';
 import { Picker } from 'native-base';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { screenWidth, screenHeight } from '../constants/dimensions';
 
 export default function FormsModal(props) {
     const navigation = useNavigation();
     const [title, setTitle] = useState();
+    const [prioridade, setPrioridade] = useState(1);
 
     return (
         <View style={styles.formsScreenContainer}>
@@ -27,23 +29,22 @@ export default function FormsModal(props) {
                     <Text style={{fontSize: 18, color: 'black'}}>Prioridade: </Text>
                     <Picker
                         mode='dropdown'
-                        selectedValue={state.prioridade}
-                        onValueChange={(value) => changeState.setPrioridade(value)}
+                        selectedValue={prioridade}
+                        onValueChange={(value) =>setPrioridade(value)}
                     >
                         <Picker.Item label="1" value="1" />
                         <Picker.Item label="2" value="2" />
                         <Picker.Item label="3" value="3" />
                         <Picker.Item label="4" value="4" />
-                        <Picker.Item label="5" value="5" />
                     </Picker>
                 </View>
-                <View style={styles.formsRowContainer}>
-                <TouchableOpacity style={styles.formsButton} onPress={console.log("hi")}>
-                    <Text style={styles.formsButtonText}>Salvar</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.formsButton} onPress={() => navigation.goBack()}>
-                    <Text style={styles.formsButtonText}>Cancelar</Text>
-                </TouchableOpacity>
+                <View style={styles.formsButtonRowContainer}>
+                    <TouchableOpacity style={styles.formsButton} onPress={() => navigation.goBack()}>
+                        <Text style={styles.formsButtonText}>Cancelar</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.formsButton} onPress={console.log("hi")}>
+                        <Text style={styles.formsButtonText}>Salvar</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -58,46 +59,46 @@ const styles = StyleSheet.create({
         },
         formsContainer: {
             elevation: 10,
-            width: '90%',
-            backgroundColor:'white'
+            width: screenWidth * 0.9,
+            backgroundColor:'white',
+            borderRadius: screenHeight * 0.01
         },
-        formsTitleContainer: {
-            //
-        }, 
         formsTitleInputText: {
             borderBottomWidth: 1,
             borderColor: 'grey',
-            fontSize: 25,
-            marginLeft:50,
-            marginRight: 10,
-            marginTop: 10
+            fontSize: screenHeight *0.05,
+            marginLeft: screenWidth * 0.1,
+            marginRight: screenWidth * 0.02,
+            marginVertical: screenHeight * 0.01
     
         },
         formsRowContainer: {
             flexDirection: 'row',
             borderWidth: 0.5,
             borderColor: 'grey',
-            marginTop: 10,
-            marginHorizontal: 8,
-            height: 50,
+            marginVertical: 10,
+            marginHorizontal: screenWidth * 0.02,
+            height: screenHeight * 0.065,
             alignItems:'center',
-            paddingLeft:2
+            paddingLeft: screenWidth * 0.01
         },
-        formsPicker: {
-            //
+        formsButtonRowContainer: {
+            flexDirection: 'row',
+            justifyContent:'center',
+            height: screenHeight * 0.065,
+            marginVertical: screenHeight * 0.03,
+            alignItems:'center',
         },
         formsButton: {
             backgroundColor: 'dodgerblue',
             justifyContent: 'center',
-            marginVertical: 20,
-            marginHorizontal: 20,
-            width: '30%',
-            height: 40,
-            alignSelf: 'flex-end',
+            marginHorizontal: screenWidth * 0.06,
+            width: screenWidth * 0.3,
+            height: '80%',
         },
         formsButtonText: {
             color: 'white',
             textAlign:'center',
-            fontSize: 20
+            fontSize: screenHeight * 0.03
         }
     })
