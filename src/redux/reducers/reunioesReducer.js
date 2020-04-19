@@ -1,8 +1,6 @@
 import { GET_REUNIOES, ADD_REUNIAO } from '../actions/types';
 
-const initialState = {
-    reunioes: []
-};
+const initialState = {};
 
 export default function (state = initialState, action) {
     switch (action.type) {

@@ -1,17 +1,20 @@
-
 import { HerokuApiGetAuth, HerokuApiPostAuth } from '../../apis/HerokuApi';
 import { GET_REUNIOES, ADD_REUNIAO } from './types';
 import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
+import { 
+    convertHerokuReunioesToValidData 
+} from '../../screens/LoggedIn/UtilidadesScreen/AgendaScreen/agendaLogicFunctions';
 
 export const fetchReunioes = () => async (dispatch) => {
     alert("fetchReunioes foi chamada")
-    // try {
-    //     const response = await HerokuApiGetAuth.get('/reuniao/');
-    //     console.log(response.data)
-    //     dispatch({ type: GET_REUNIOES, payload: response.data })
-    // } catch (error) {
-    //     alert(error.message)
-    // };
+    try {
+        const response = await HerokuApiGetAuth.get('/reuniao/');
+        const data = convertHerokuReunioesToValidData(response.data);
+        console.log(data)
+        dispatch({ type: GET_REUNIOES, payload: data })
+    } catch (error) {
+        alert(error.message)
+    };
 };
 
 export const marcarReuniao = () => async (dispatch) => {

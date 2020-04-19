@@ -29,12 +29,10 @@ const UtilidadesScreen = (props) => {
         refreshControl={
           <RefreshControl
             refreshing={isRefreshing}
-            onRefresh={() => {
-                props.checkPlantaoStatus();
+            onRefresh={async () => {
                 setIsRefreshing(true)
-                setTimeout(() => {
-                  setIsRefreshing(false)
-                }, 2000);
+                await props.checkPlantaoStatus();
+                setIsRefreshing(false)
             }} />
         }
         >
