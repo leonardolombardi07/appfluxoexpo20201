@@ -4,7 +4,8 @@ import {
     Ionicons, 
     MaterialCommunityIcons, 
     FontAwesome, 
-    Entypo 
+    Entypo,
+    EvilIcons
 } from '@expo/vector-icons';
 import { screenWidth } from '../../../constants/dimensions';
 
@@ -16,7 +17,7 @@ export function HomeIcon() {
 
 export function UtilidadesIcon() {
     return (
-        <MaterialCommunityIcons name="table-settings" size={screenWidth * 0.07} color="orange" />
+        <EvilIcons name="gear" size={screenWidth * 0.07} color="orange" />
     )
 }
 

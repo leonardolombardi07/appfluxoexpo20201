@@ -1,5 +1,5 @@
 import { HerokuApiGetAuth, HerokuApiPostAuth } from '../../apis/HerokuApi';
-import { GET_REUNIOES, EDIT_FORMS_DATA, MARCAR_REUNIAO } from './types';
+import { GET_REUNIOES, EDIT_FORMS_DATA, MARCAR_REUNIAO, SHOW_PRIORIDADES_MODAL } from './types';
 import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
 import { 
     convertHerokuReunioesToValidData,
@@ -38,4 +38,14 @@ export const marcarReuniao = () => async (dispatch) => {
     // } finally {
     //     RootNavigation.navigate('Agenda');
     // };
+};
+
+
+
+export const openPrioridadesModal = () => (dispatch) => {
+    dispatch({ type: SHOW_PRIORIDADES_MODAL, payload: true })
+};
+
+export const closePrioridadesModal = () => (dispatch) => {
+    dispatch({ type: SHOW_PRIORIDADES_MODAL, payload: false })
 };

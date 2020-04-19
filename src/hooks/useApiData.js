@@ -7,21 +7,25 @@ export default (coord_name) => {
     const [results, setResults] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const getData = async () => {
+    const fetchData = async () => {
         const endPoint = convertCoordNameToEndPoint(coord_name);
         try {
             const response = await HerokuApiGetAuth.get(endPoint);
+            console.log(response.status)
             setResults(response.data)
+            setErrorMessage(null)
 
         } catch (error) {
-            alert("Requisição em getData no arquivo useApiData falhou")
+            console.log(error.message)
+            alert(error.message)
             setErrorMessage("Requisição em getData no arquivo useApiData falhou")
         };
     };
+  
 
     useEffect (() => {
-        getData()
-    }, []);
+        fetchData()
+    });
 
-    return [results, errorMessage];
+    return [results, errorMessage, fetchData];
 }

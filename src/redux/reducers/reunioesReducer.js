@@ -1,4 +1,10 @@
-import { GET_REUNIOES, EDIT_FORMS_DATA, MARCAR_REUNIAO } from '../actions/types';
+import { 
+    
+    GET_REUNIOES, 
+    EDIT_FORMS_DATA, 
+    MARCAR_REUNIAO, 
+    SHOW_PRIORIDADES_MODAL 
+} from '../actions/types';
 
 
 const initialState = {
@@ -9,7 +15,8 @@ const initialState = {
         prioridade: 1,
         hora_inicio: '',
         hora_final: ''
-    }
+    },
+    isPrioridadesModalOpen: false
 };
 
 export default function (state = initialState, action) {
@@ -20,11 +27,19 @@ export default function (state = initialState, action) {
                 reunioes: action.payload
             };
         case EDIT_FORMS_DATA:
-            return action.payload; //consertar
+            return {
+                ...state,
+                formsData: action.payload
+            } //consertar
         case MARCAR_REUNIAO:
             return {
                 ...state
             };
+        case SHOW_PRIORIDADES_MODAL:
+            return {
+                ...state,
+                isPrioridadesModalOpen: action.payload
+            }
         default: 
             return state;
     };

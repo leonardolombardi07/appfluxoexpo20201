@@ -6,9 +6,11 @@ import { portugueseLocales, agendaTheme } from './agendaThemes';
 LocaleConfig.locales['pt'] = portugueseLocales;
 LocaleConfig.defaultLocale = 'pt';
 import { renderItem, renderEmptyData, renderEmptyDate, renderKnob } from './agendaRenderFunctions';
+import PrioridadesModal from '../../../../components/PrioridadesModal';
 import PlusButton from '../../../../components/PlusButton';
 import { connect } from 'react-redux';
-import { fetchReunioes, marcarReuniao } from '../../../../redux/actions/reunioesActions';
+import { fetchReunioes, marcarReuniao, closePrioridadesModal } from '../../../../redux/actions/reunioesActions';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const AgendaScreen = (props) => {
@@ -26,11 +28,12 @@ const AgendaScreen = (props) => {
 
     return (
         <View style={styles.agendaContainer}>
+             <PrioridadesModal />
             <Agenda
             items={props.reunioesData.reunioes}
             renderItem={renderItem}
             renderEmptyDate={renderEmptyDate}
-            renderEmptyData={renderEmptyData}
+            // renderEmptyData={renderEmptyData}
             renderKnob={renderKnob}
             selected={new Date()}
             onRefresh={handleRefresh}
@@ -38,25 +41,28 @@ const AgendaScreen = (props) => {
             pastScrollRange={1}
             futureScrollRange={1}
             />
+
             <PlusButton onPress={() => props.navigation.navigate('MarcarReuniaoScreen')}/>
         </View>
+
+       
         
     );
 };
 
 const styles = StyleSheet.create({
     agendaContainer: {
-        flex: 1
+        flex: 1,
+        
     }
 })
 
-
-
 const mapStateToProps = (state) => {
+    console.log(state);
     return { reunioesData: state.reunioesData }
 };
 
 export default connect(
     mapStateToProps,
-    { fetchReunioes, marcarReuniao }
+    { fetchReunioes, marcarReuniao, closePrioridadesModal }
 )(AgendaScreen);

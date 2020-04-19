@@ -28,6 +28,8 @@ import {
     PROIcon,
     QABIcon 
 } from '../../assets/Icons/DrawerMenuIcons';
+import LogoutButton from '../../assets/DrawerNavigation/LogoutButton';
+import { SimpleLineIcons } from '@expo/vector-icons';
 //Styling
 import { screenWidth, screenHeight } from '../../../constants/dimensions';
 //Redux for logout
@@ -37,17 +39,18 @@ import { signOut } from '../../../redux/actions/authActions';
 
 const CustomDrawerContent = (props) => {
     return (
-        <DrawerContentScrollView {...props}>
+        <DrawerContentScrollView {...props} >
             <DrawerHeader />
             <DrawerItemList
             itemStyle={{height: screenHeight * 0.05, justifyContent: 'center'}}
             labelStyle={{color: 'black', fontWeight: '700', fontSize: screenWidth * 0.04}}
             {...props} />
-            <DrawerItem 
+            <DrawerItem
+            icon={() => <SimpleLineIcons name="logout" size={screenWidth * 0.07} color="red" />}
                 label="Sair"
                 labelStyle={{
-                    color: 'red', fontWeight: '700', 
-                    fontSize: screenWidth * 0.05, marginTop: screenWidth*0.03,
+                    color: 'red', fontWeight: '700', alignItems:'center',
+                    fontSize: screenWidth * 0.05,
                 }}
                 onPress={
                     () => 
@@ -85,17 +88,20 @@ export const DrawerFlow = (props) => {
         >
             <Drawer.Screen 
                 name="Home" 
-                component={HomeStackFlow} 
+                component={HomeStackFlow}
                 options={{
                     drawerIcon: () => <HomeIcon />,
                 }}
+
             />
             <Drawer.Screen 
                 name="Utilidades" 
                 component={UtilidadesStackFlow}
                 options={{
                     drawerIcon: () => <UtilidadesIcon />,
+                    
                 }}
+                
             />
             <Drawer.Screen 
                 name="CCE" 

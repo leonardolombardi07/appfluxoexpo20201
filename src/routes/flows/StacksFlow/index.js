@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MainHeaderButton from '../../assets/MainHeader/MainHeaderButton';
 import MainHeaderBackButton from '../../assets/MainHeader/MainHeaderBackButton';
+import MainHeaderPrioridadesButton from '../../../routes/assets/MainHeader/MainHeaderPrioridadesButton';
 const HomeStack = createStackNavigator();
 const UtilidadesStack = createStackNavigator();
 const CCEStack = createStackNavigator();
@@ -43,8 +44,9 @@ export const UtilidadesStackFlow = () => {
             headerTitleStyle: {color: 'white'},
             headerLeft: () => <MainHeaderButton />
         }}>
-            <UtilidadesStack.Screen name="Utilidades" component={UtilidadesScreen} />
-            <UtilidadesStack.Screen 
+            <UtilidadesStack.Screen name="Utilidades" component={UtilidadesScreen}  />
+            <UtilidadesStack.Screen
+            
                 name="QRCodeScreen" 
                 component={QRCodeScreen}
                 
@@ -57,7 +59,8 @@ export const UtilidadesStackFlow = () => {
                 component={AgendaScreen}
                 
                 options={{
-                   headerLeft: () => <MainHeaderBackButton />
+                   headerLeft: () => <MainHeaderBackButton />,
+                   headerRight: () => <MainHeaderPrioridadesButton />
                 }}    
             />
             <UtilidadesStack.Screen 
