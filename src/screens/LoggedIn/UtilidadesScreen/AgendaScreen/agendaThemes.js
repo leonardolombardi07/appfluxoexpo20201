@@ -1,5 +1,3 @@
-import {LocaleConfig} from 'react-native-calendars';
-
 export const agendaTheme = {
     backgroundColor: 'orange',
     calendarBackground: 'orange',

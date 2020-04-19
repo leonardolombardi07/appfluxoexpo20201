@@ -5,7 +5,7 @@ import {LocaleConfig} from 'react-native-calendars';
 import { portugueseLocales, agendaTheme } from './agendaThemes';
 LocaleConfig.locales['pt'] = portugueseLocales;
 LocaleConfig.defaultLocale = 'pt';
-import { renderItem, renderEmptyData, renderEmptyDate } from './agendaRenderFunctions';
+import { renderItem, renderEmptyData, renderEmptyDate, renderKnob } from './agendaRenderFunctions';
 import PlusButton from '../../../../components/PlusButton';
 import { connect } from 'react-redux';
 import { fetchReunioes, marcarReuniao } from '../../../../redux/actions/reunioesActions';
@@ -13,6 +13,12 @@ import { fetchReunioes, marcarReuniao } from '../../../../redux/actions/reunioes
 
 const AgendaScreen = (props) => {
     const [isRefreshing, setIsRefreshing] = useState(false);
+
+    const handleRefresh = async () => {
+        setIsRefreshing(true);
+        await props.fetchReunioes();
+        setIsRefreshing(false)
+    };
 
     useEffect(() => {
         props.fetchReunioes();
@@ -25,14 +31,12 @@ const AgendaScreen = (props) => {
             renderItem={renderItem}
             renderEmptyDate={renderEmptyDate}
             renderEmptyData={renderEmptyData}
+            renderKnob={renderKnob}
             selected={new Date()}
-            onRefresh={async () => {
-                setIsRefreshing(true);
-                await props.fetchReunioes();
-                setIsRefreshing(false);
-            }
-            }
+            onRefresh={handleRefresh}
             refreshing={isRefreshing}
+            pastScrollRange={1}
+            futureScrollRange={1}
             />
             <PlusButton onPress={() => props.navigation.navigate('MarcarReuniaoScreen')}/>
         </View>

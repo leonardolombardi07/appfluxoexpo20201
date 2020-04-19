@@ -18,6 +18,17 @@ const UtilidadesScreen = (props) => {
     props.checkPlantaoStatus();
   },[])
 
+  const handleRefresh = async () => {
+      setIsRefreshing(true);
+      try {
+        await props.checkPlantaoStatus();
+      } catch (error) {
+        alert(error.message)
+      } finally {
+        setIsRefreshing(false)
+      }
+  };
+
   const handlePlantao = () => {
     props.navigation.navigate('QRCodeScreen');
   }
@@ -29,11 +40,7 @@ const UtilidadesScreen = (props) => {
         refreshControl={
           <RefreshControl
             refreshing={isRefreshing}
-            onRefresh={async () => {
-                setIsRefreshing(true)
-                await props.checkPlantaoStatus();
-                setIsRefreshing(false)
-            }} />
+            onRefresh={handleRefresh} />
         }
         >
       <LargeCard 

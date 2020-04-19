@@ -2,18 +2,22 @@ import { HerokuApiGetAuth, HerokuApiPostAuth } from '../../apis/HerokuApi';
 import { GET_REUNIOES, ADD_REUNIAO } from './types';
 import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
 import { 
-    convertHerokuReunioesToValidData 
+    convertHerokuReunioesToValidData,
+    fillEmptyDates 
 } from '../../screens/LoggedIn/UtilidadesScreen/AgendaScreen/agendaLogicFunctions';
 
 export const fetchReunioes = () => async (dispatch) => {
-    alert("fetchReunioes foi chamada")
+    // alert("fetchReunioes foi chamada")
     try {
         const response = await HerokuApiGetAuth.get('/reuniao/');
         const data = convertHerokuReunioesToValidData(response.data);
-        console.log(data)
-        dispatch({ type: GET_REUNIOES, payload: data })
+        const fullData = fillEmptyDates(data);
+        dispatch({ type: GET_REUNIOES, payload: fullData })
     } catch (error) {
         alert(error.message)
+        // const fullData = fillEmptyDates({});
+        const fullData = {};
+        dispatch({ type: GET_REUNIOES, payload: fullData })
     };
 };
 
