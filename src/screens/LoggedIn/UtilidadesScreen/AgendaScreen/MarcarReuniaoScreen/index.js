@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { marcarReuniao } from '../../../../../redux/actions/reunioesActions';
+import FormsModal from '../../../../../components/FormsModal';
 
 const MarcarReuniaoScreen = (props) => {
     return (
-        <View style={styles.marcarReuniaoContainer}>
-            <Text>Hello</Text>
-        </View>
+        <FormsModal />
     );
 };
 
