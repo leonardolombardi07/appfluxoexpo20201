@@ -27,7 +27,7 @@ const AgendaScreen = (props) => {
     return (
         <View style={styles.agendaContainer}>
             <Agenda
-            items={props.reunioesData}
+            items={props.reunioesData.reunioes}
             renderItem={renderItem}
             renderEmptyDate={renderEmptyDate}
             renderEmptyData={renderEmptyData}

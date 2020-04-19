@@ -1,5 +1,5 @@
 import { HerokuApiGetAuth, HerokuApiPostAuth } from '../../apis/HerokuApi';
-import { GET_REUNIOES, ADD_REUNIAO } from './types';
+import { GET_REUNIOES, EDIT_FORMS_DATA, MARCAR_REUNIAO } from './types';
 import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
 import { 
     convertHerokuReunioesToValidData,
@@ -15,14 +15,19 @@ export const fetchReunioes = () => async (dispatch) => {
         dispatch({ type: GET_REUNIOES, payload: fullData })
     } catch (error) {
         alert(error.message)
-        // const fullData = fillEmptyDates({});
         const fullData = {};
         dispatch({ type: GET_REUNIOES, payload: fullData })
     };
 };
 
+export const editFormsData = (formsData) => async (dispatch) => {
+    alert("editFormsData foi chamada");
+    console.log("edit" + formsData)
+    dispatch({ type: EDIT_FORMS_DATA, payload: formsData })
+}
+
 export const marcarReuniao = () => async (dispatch) => {
-    alert("addReuniao foi chamada")
+    alert("marcar foi chamada")
 
     // try {
     //     const json = JSON.stringify({ fechar: 1 });
