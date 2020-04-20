@@ -55,7 +55,8 @@ export const signIn = ({ email, password }) => async (dispatch) => {
         RootNavigation.navigate('Home')
 
     } catch (error) {
-        alert(error.message)
+        alert(error.message);
+        return "erro";
     };
 
 }

@@ -10,9 +10,7 @@ import ShowError from '../../../components/ShowError';
 import Spacer from '../../../components/Spacer';
 
 export default function QABScreen(props) {
-  console.log("Home Screen foi chamada")
   const [results, errorMessage] = useApiData('QAB');
-  console.log(results)
 
   if (!results && !errorMessage) {
     return <LoadingIndicator />

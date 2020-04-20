@@ -16,6 +16,14 @@ import { screenWidth, screenHeight } from '../../../constants/dimensions';
 const LoginScreen = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const handleSignInPress = async ({ email, password }) => {
+      const resposta = await props.signIn({ email, password });
+      if (resposta === "erro") {
+        setErrorMessage("NÃO É POSSÍVEL LOGAR")
+      };
+    }
 
     return (
       <KeyboardAvoidingView behavior='height' style={styles.container}>
@@ -57,11 +65,15 @@ const LoginScreen = (props) => {
             <TouchableOpacity style={styles.buttonContainerForm}>
               <Text
               style={styles.buttonTextForm}
-              onPress={() => props.signIn({ email, password })}
+              onPress={handleSignInPress}
               >
                 Login
               </Text>
             </TouchableOpacity>
+            {
+              errorMessage === null ? null :
+              <Text>{errorMessage}</Text>
+            }
 
             <TouchableOpacity >
                 <Text>
