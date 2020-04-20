@@ -48,7 +48,7 @@ const UtilidadesScreen = (props) => {
         cardSubTitle="e Plantonistas"
         icon={<Ionicons name='md-person' size={screenWidth * 0.16 } color={SECONDARY_COLOR} />}
         withStatus={true}
-        status={props.statusPlantao}
+        status={props.plantaoData.statusPlantao}
         firstButtonTitle="CHECAR HISTÓRICO"
         secondButtonTitle="ABRIR PLANTÃO"
         firstButtonOnPress={() => console.log("1")}
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-  return { statusPlantao: state.plantaoData };
+  return { plantaoData: state.plantaoData };
 };
 
 export default connect(

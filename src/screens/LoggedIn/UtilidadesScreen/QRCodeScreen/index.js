@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, StatusBar } from 'react-native';
+import { View, StyleSheet, Text, StatusBar, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import LoadingIndicator from '../../../../components/LoadingIndicator';
 import ShowError from '../../../../components/ShowError';
@@ -15,17 +15,17 @@ const QRCodeScreen = (props) => {
     const onQRCodeScan = ({ type, data }) => {
         setScanned(true)
         switch (props.statusPlantao) {
-            case 'fechado':
-                props.abrirPlantao();
+            case 'Fechado':
+                props.abrirPlantao(data);
                 break;
-            case 'aberto':
-                props.fecharPlantao();
+            case 'Aberto':
+                props.fecharPlantao(data);
                 break;
             default:
                 alert("Nao é possivel marcar plantoes agora");
                 props.navigation.navigate('Utilidades')
                 break;
-        }
+        };
     
     };
 
@@ -38,22 +38,34 @@ const QRCodeScreen = (props) => {
     };
 
     return (
+        <View style={{flex:1}}>
         <View  style={styles.qrCodeContainer}>
-            <StatusBar hidden />
+            {/* <StatusBar hidden /> */}
             <BarCodeScanner
                 barCodeTypes={[BarCodeScanner.Constants.BarCodeType.qr]}
                 onBarCodeScanned={scanned ? undefined : onQRCodeScan}
                 style={[styles.qrCodeBarCode, StyleSheet.absoluteFillObject]}>
                 <View style={styles.qrCodeFocus}></View>
-            </BarCodeScanner>
-          
+            </BarCodeScanner>        
         </View>
+        <View style={{
+            height: screenHeight * 0.5, 
+            justifyContent: 'space-around',
+            backgroundColor: 'red',
+            alignItems:'center'
+            }}>
+            <Button title="Abrir Plantao" onPress={() => props.abrirPlantao()} />
+            <Button title="Fechar Plantao" onPress={() => props.fecharPlantao()}/>
+        </View>
+        </View>
+
     );
 };
 
 const styles = StyleSheet.create({
     qrCodeContainer: {
-        flex: 1
+        // flex: 1,
+        height: screenHeight * 0.5,
         
     },
     qrCodeBarCode: {

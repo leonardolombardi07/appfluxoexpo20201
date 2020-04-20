@@ -10,92 +10,125 @@ import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation
 
 
 export const checkPlantaoStatus = () => async (dispatch) => {
-    // alert("CheckPlantaoStatus foi chamada")
-    const currentTime = new Date(); //Verficar horario atual (convert newDate to minutes)
-    try {
-        if (currentTime.getMinutes() > 20 && currentTime.getMinutes() < 50) {
-            // If entre 20 e 50 minutos, statusPlantao = null
-            // alert("Dispatch null. Não se pode abrir nem fechar plantões entre x:20 e x:50")
-            dispatch({ type: CHANGE_PLANTAO_STATUS, payload: null })
-        } else {
-            // Else (minutos entre 0-20 ou 50-60)
-            const response = await HerokuApiGetAuth.get('/plantao/') //Pegar do back lista com 20 últimos plantões
-            const user_id = await parseInt(AsyncStorage.getItem("user_id")); //Pegar Id do usuário
-            // Checar se usuário ta nessa lista
-            const horarios = [];
-            response.data.forEach((objeto) => {
-                if (objeto.usuario[0].user_id == user_id) {
-                    if (objeto.status === 'Fechado') { // Se o plantao já estiver fechado
-                        dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'fechado' })
-                    } else {
-                        horarios.push(
-                            objeto.primeiro_plantao,
-                            objeto.segundo_plantao,
-                            objeto.horario_entrada
-                        )
-                    }
-                }
-            });
+    const currentTime = new Date();
+    const token = await AsyncStorage.getItem("plantao_id");
     
-            // If usuário está na lista de últimos plantões
-            if (horarios.length != 0) {
-                if (horarios[1] != null) { //Se foram marcados dois plantões
-                    if (wasOpenedLessThen90MinutesAgo(horarios[-1])) {
-                        dispatch({ type: CHANGE_PLANTAO_STATUS, payload: null })
-                    } else {
-                        dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'aberto' })
-                    }
-                } else { // Se foi marcado apenas um plantão
-                    //Checar se o último plantão foi realizado há menos de 30 minutos
+    let statusPlantao = null;
+    let canChangePlantaoStatus = null;
+
+
+    
+    if (currentTime.getMinutes() > 20 && currentTime.getMinutes() < 50) {
+        if (!token) {
+            statusPlantao = 'Fechado';
+            canChangePlantaoStatus = true;
+        }
+        else if (token) {
+            statusPlantao = 'Aberto';
+            try {
+                // Checar há quanto tempo foi marcado o último plantão
+                const response = await HerokuApiGetAuth.get('/plantao/');
+                const user_id = await parseInt(AsyncStorage.getItem("user_id"));
+                const horarios = [];
+                response.data.forEach((objeto) => {
+                    if (objeto.usuario[0].user_id == user_id) {
+                        if (objeto.status === 'Aberto') {
+                            horarios.push(
+                                objeto.primeiro_plantao,
+                                objeto.segundo_plantao,
+                                objeto.horario_entrada
+                            );
+                        };
+                    };
+                });
+
+                if (horarios.length === 0) { //Nao foi encontrado, o plantão foi aberto há muito tempo
+                    canChangePlantaoStatus = true;
+                }
+                else if (horarios.length !== 0) {
                     if (wasOpenedLessThen30MinutesAgo(horarios[-1])) {
-                        // Se foi há menos que 30 minutos
-                        dispatch({ type: CHANGE_PLANTAO_STATUS, payload: null })
-                    } else {
-                        // Se foi há mais que 30 minutos
-                        dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'aberto' })
-                    }
-                }
-    
-    
-            } else { //(usuário não está na lista de últimos plantões)
-                dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'fechado' })
-                console.log("Usuario não está na lista, plantao fechado e portanto pode abrir um plantao")
-            }
+                        canChangePlantaoStatus = true;
+                    } else if (!wasOpenedLessThen30MinutesAgo(horarios[-1])) {
+                        canChangePlantaoStatus = false;
+                    };
+                };
+
+            } catch (error) {
+                alert(error.message)
+            };
         };
-    } catch (error) {
-        alert(error.message)
     }
+    if (currentTime.getMinutes() < 20 || currentTime.getMinutes() > 50) {
+        canChangePlantaoStatus = false;
+        if (!token) {
+            statusPlantao = 'Fechado';
+
+        };
+        if (token) {
+            statusPlantao = 'Aberto';
+        
+        };
+    };
+    
+    console.log(statusPlantao, canChangePlantaoStatus)
+    dispatch({ 
+        type: CHANGE_PLANTAO_STATUS,
+        payload: {
+            statusPlantao: statusPlantao,
+            canChangePlantaoStatus: canChangePlantaoStatus
+        }
+    });
+
 };
 
-export const fecharPlantao = () => async (dispatch) => {
-        alert("Fechar Plantao Chamado")
-        // importante: devemos usar o "data", url passado pelo QR code, para evitar que as
-        // pessoas marquem plantao com qualquer qr code
+
+export const fecharPlantao = (qrCodeURL) => async (dispatch) => {
+        // alert("Fechar Plantao Chamado")
+        let token = await AsyncStorage.getItem("plantao_id");
+        token = parseInt(token);
         try {
+            if (qrCodeURL !== 'https://fluxoconsultoria.poli.ufrj.br/appfluxoeobicho') throw "Por gentileza, scannear o QR code localizado na sede da Fluxo"
+            if (!token) throw "Sem token";
             const json = JSON.stringify({ fechar: 1 });
-            const response = await HerokuApiPostAuth.post('/plantao/', json);
-            dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'fechado' })
+            const response = await HerokuApiPostAuth.put(`/plantao/${token}/`, json);
+            await AsyncStorage.removeItem("plantao_id");
+            dispatch({ 
+                type: CHANGE_PLANTAO_STATUS, 
+                payload: {
+                    statusPlantao: 'Fechado',
+                    canChangePlantaoStatus: true //VERIFICAR ISSO: dependendo do horário é false
+                }
+            });
+            
         } catch (error) {
-            alert(error.message)
-        } finally {
+            alert(error)
+        } finally {      
             RootNavigation.navigate('Utilidades');
-        }
-    }
+        };
+};
 
 
-export const abrirPlantao = () => async (dispatch) => {
-        alert("Abrir Plantao chamada")
-        // importante: devemos usar o "data", url passado pelo QR code, para evitar que as
-        // pessoas marquem plantao com qualquer qr code
+export const abrirPlantao = (qrCodeURL) => async (dispatch) => {
         try {
+            if (qrCodeURL !== 'https://fluxoconsultoria.poli.ufrj.br/appfluxoeobicho') throw "Por gentileza, scannear o QR code localizado na sede da Fluxo"
             let postID = convertHourToPlantaoId();
+            if (postID === "Não é possível abrir um plantão antes de 6AM ou depois de 17AM") throw "Não é possível abrir um plantão antes de 6AM ou depois de 17AM";
             const json = JSON.stringify({ primeiro_plantao: postID, segundo_plantao: null }) // lidar com marcação de dois plantoes
             const response = await HerokuApiPostAuth.post('/plantao/', json);
-            dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'aberto' })
+            await AsyncStorage.setItem("plantao_id", String(response.data.item_id));
+
+            dispatch({ 
+                type: CHANGE_PLANTAO_STATUS, 
+                payload: {
+                    statusPlantao: 'Aberto',
+                    canChangePlantaoStatus: false
+                }
+            });
+
         } catch (error) {
-            alert("Erro na função abrirPlantao: " + String(error.message))
+            alert("Erro na função abrirPlantao: " + error)
         } finally {
             RootNavigation.navigate('Utilidades');
-        }
-    }
+        };
+};
 

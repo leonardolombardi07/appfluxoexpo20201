@@ -1,6 +1,7 @@
 import { SIGN_IN, SIGN_OUT, TRY_LOCAL_SIGN_IN } from './types';
 import { HerokuApiPost } from '../../apis/HerokuApi';
 import { AsyncStorage } from 'react-native';
+import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
 
 export const tryLocalSignIn = () => async (dispatch) => {
     const refresh_token = await AsyncStorage.getItem('refresh_token');
@@ -41,6 +42,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
     try {
         const json = JSON.stringify({ email: email, password: password });
         const response = await HerokuApiPost.post ('/auth/', json);
+        console.log(response.data)
         await AsyncStorage.setItem ("access_token", response.data.access_token);
         await AsyncStorage.setItem ("refresh_token", response.data.refresh_token);
         dispatch ({ 
@@ -50,6 +52,7 @@ export const signIn = ({ email, password }) => async (dispatch) => {
             refresh_token: response.data.refresh_token
          }
         });
+        RootNavigation.navigate('Home')
 
     } catch (error) {
         alert(error.message)
