@@ -51,11 +51,16 @@ const UtilidadesScreen = (props) => {
         status={props.plantaoData.statusPlantao}
         firstButtonTitle="CHECAR HISTÓRICO"
         secondButtonTitle={
+          props.plantaoData.canChangePlantaoStatus === true ?
           props.plantaoData.statusPlantao === 'Fechado' ? 
-          "ABRIR PLANTÃO" : "FECHAR PLANTÃO"
+          "ABRIR PLANTÃO" : "FECHAR PLANTÃO" : "AGUARDE"
         }
         firstButtonOnPress={() => console.log("1")}
-        secondButtonOnPress={handlePlantao}
+        secondButtonOnPress={
+          props.plantaoData.canChangePlantaoStatus === true ?
+          handlePlantao :
+          () => alert("Agora não é possível marcar plantões")
+        }
       />
 
       <LargeCard 
