@@ -5,47 +5,49 @@ import { screenWidth, screenHeight } from '../constants/dimensions';
 import { Button } from 'native-base';
 
 export default function ShowError(props) {
-    const [isRefreshing, setIsRefreshing] = useState(false);
+    // const [isRefreshing, setIsRefreshing] = useState(false);
 
-    let primaryErrorMessage;
-    let secondaryErrorMessage;
-    switch ( props.errorMessage ) {
-        case '//':
-            //
-        case '/':
-            //
-        default:
-            primaryErrorMessage = "Uoops... Algo deu errado!"
-            secondaryErrorMessage = "Dá um refresh, quem sabe resolve"
-    };
+    // let primaryErrorMessage;
+    // let secondaryErrorMessage;
+    // switch ( props.errorMessage ) {
+    //     case '//':
+    //         break;
+    //     case '/':
+    //         break;
+    //     default:
+    //         primaryErrorMessage = "Uoops... Algo deu errado!"
+    //         secondaryErrorMessage = "Dá um refresh, quem sabe resolve";
+    //         break;
+    // };
 
-    const handleRefresh = async () => {
-        setIsRefreshing(true);
-        try {
-          await props.handleRefresh();
-        } catch (error) {
-          alert(error.message)
-        } finally {
-          setIsRefreshing(false)
-        }
-    };
+    // const handleRefresh = () => {
+    //     setIsRefreshing(true);
+    //     try {
+    //       props.handleRefresh();
+    //     } catch (error) {
+    //       alert(error.message)
+    //     } finally {
+    //       setIsRefreshing(false)
+    //     }
+    // };
 
     return (
         <View style={styles.showErrorContainer}>
             <ScrollView 
             showsVerticalScrollIndicator={false}
-            refreshControl={
-            <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={handleRefresh} />
-            }>
+            // refreshControl={
+            // <RefreshControl
+            //     refreshing={isRefreshing}
+            //     onRefresh={handleRefresh} />
+            // }
+            >
             <View style={styles.sadSkullContainer}>
                 <Image
                 style={styles.sadSkullDimensions}
                 source={require('../assets/images/sadSkull.png')}
                 resizeMode='center'
                 />
-                <Text style={styles.primaryErrorMessage}>{primaryErrorMessage}</Text>
+                <Text style={styles.primaryErrorMessage}>Uoops... Algo deu errado!</Text>
             </View>
             <Text style={styles.secondaryErrorMessage}>
                 Parece que nossos servidores cansaram. {'\n'}
@@ -53,9 +55,9 @@ export default function ShowError(props) {
                 Desculpa, caveira!
             </Text>
      
-            <TouchableOpacity style={styles.buttonStyle} onPress={handleRefresh}>
+            {/* <TouchableOpacity style={styles.buttonStyle} onPress={handleRefresh}>
                 <Text style={styles.buttonTextStyle}>Tentar Novamente</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             </ScrollView>
         </View>
     );
