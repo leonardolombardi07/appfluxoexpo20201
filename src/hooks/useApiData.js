@@ -3,7 +3,7 @@ import convertCoordNameToEndPoint from '../constants/functions/convertCoordNameT
 import { HerokuApiGetAuth } from '../apis/HerokuApi';
 
 export default (coord_name) => {
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
     const fetchData = async () => {

@@ -10,17 +10,15 @@ import ShowError from '../../../components/ShowError';
 import Spacer from '../../../components/Spacer';
 
 export default function HomeScreen(props) {
-  console.log("Home Screen foi chamada")
   const [results, errorMessage] = useApiData('HOME');
-  console.log(results)
 
   if (!results && !errorMessage) {
     return <LoadingIndicator />
   };
 
-  // if (errorMessage) {
-  //   return <ShowError errorMessage={errorMessage} />
-  // }
+  if (errorMessage) {
+    return <ShowError errorMessage={errorMessage} />
+  }
   
   return (
     <View style={styles.container}>
