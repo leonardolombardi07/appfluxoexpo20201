@@ -14,7 +14,7 @@ export default function LargeCard(props) {
             <View style={styles.footerContainer}>
                 { props.withStatus ? 
                 <Text style={styles.buttonTitleStyle}>
-                    {props.status === null ? "SEM PLANTAO" : props.status}
+                    {props.status === null ? null : "Plantão " + props.status}
                 </Text> :
                 <PrimaryButton 
                 buttonTitle={props.firstButtonTitle} 
@@ -64,5 +64,7 @@ const styles = StyleSheet.create({
     },
     buttonTitleStyle: {
         textAlign: 'center',
+        fontWeight: 'bold',
+        color: PRIMARY_COLOR_LIGHT
     }
 })

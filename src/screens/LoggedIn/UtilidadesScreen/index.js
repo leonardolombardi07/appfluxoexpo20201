@@ -50,7 +50,10 @@ const UtilidadesScreen = (props) => {
         withStatus={true}
         status={props.plantaoData.statusPlantao}
         firstButtonTitle="CHECAR HISTÓRICO"
-        secondButtonTitle="ABRIR PLANTÃO"
+        secondButtonTitle={
+          props.plantaoData.statusPlantao === 'Fechado' ? 
+          "ABRIR PLANTÃO" : "FECHAR PLANTÃO"
+        }
         firstButtonOnPress={() => console.log("1")}
         secondButtonOnPress={handlePlantao}
       />

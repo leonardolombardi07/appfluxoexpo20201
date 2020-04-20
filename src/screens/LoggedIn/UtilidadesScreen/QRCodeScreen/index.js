@@ -23,7 +23,7 @@ const QRCodeScreen = (props) => {
                 break;
             default:
                 alert("Nao é possivel marcar plantoes agora");
-                props.navigation.navigate('Utilidades')
+                // props.navigation.navigate('Utilidades')
                 break;
         };
     
@@ -48,7 +48,7 @@ const QRCodeScreen = (props) => {
                 <View style={styles.qrCodeFocus}></View>
             </BarCodeScanner>        
         </View>
-        <View style={{
+        {/* <View style={{
             height: screenHeight * 0.5, 
             justifyContent: 'space-around',
             backgroundColor: 'red',
@@ -56,7 +56,7 @@ const QRCodeScreen = (props) => {
             }}>
             <Button title="Abrir Plantao" onPress={() => props.abrirPlantao()} />
             <Button title="Fechar Plantao" onPress={() => props.fecharPlantao()}/>
-        </View>
+        </View> */}
         </View>
 
     );
@@ -64,9 +64,8 @@ const QRCodeScreen = (props) => {
 
 const styles = StyleSheet.create({
     qrCodeContainer: {
-        // flex: 1,
-        height: screenHeight * 0.5,
-        
+        flex: 1,
+        // height: screenHeight * 0.5,  
     },
     qrCodeBarCode: {
         alignItems: 'center',
