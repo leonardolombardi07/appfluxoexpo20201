@@ -1,5 +1,5 @@
 import { HerokuApiGetAuth, HerokuApiPostAuth } from '../../apis/HerokuApi';
-import { GET_REUNIOES, EDIT_FORMS_DATA, MARCAR_REUNIAO, SHOW_PRIORIDADES_MODAL } from './types';
+import { GET_REUNIOES, MARCAR_REUNIAO, SHOW_PRIORIDADES_MODAL } from './types';
 import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
 import { 
     convertHerokuReunioesToValidData,
@@ -10,6 +10,7 @@ export const fetchReunioes = () => async (dispatch) => {
     // alert("fetchReunioes foi chamada")
     try {
         const response = await HerokuApiGetAuth.get('/reuniao/');
+        // console.log(response.data)
         const data = convertHerokuReunioesToValidData(response.data);
         const fullData = fillEmptyDates(data);
         dispatch({ type: GET_REUNIOES, payload: fullData })
@@ -20,27 +21,38 @@ export const fetchReunioes = () => async (dispatch) => {
     };
 };
 
-export const editFormsData = (formsData) => async (dispatch) => {
-    alert("editFormsData foi chamada");
-    console.log("edit" + formsData)
-    dispatch({ type: EDIT_FORMS_DATA, payload: formsData })
-}
+export const marcarReuniao = (formsData) => async (dispatch) => {
+    // alert("marcarReuniao foi chamada")
+    console.log("MARCAR REUNIAO")
+    try {
+        let dia = formsData.dia.getDate();
+        let mes = formsData.dia.getMonth();
+        let ano = formsData.dia.getFullYear();
 
-export const marcarReuniao = () => async (dispatch) => {
-    alert("marcar foi chamada")
+        if (mes.toString().length === 1) {
+            mes = "0" + mes;
+        };
+        
+        if (dia.toString().length === 1) {
+            dia = "0" + dia
+        };
 
-    // try {
-    //     const json = JSON.stringify({ fechar: 1 });
-    //     const response = await HerokuApiPostAuth.post('/reuniao/', json);
-    //     dispatch({ type: ADD_REUNIAO, payload: response.data })
-    // } catch (error) {
-    //     alert(error.message)
-    // } finally {
-    //     RootNavigation.navigate('Agenda');
-    // };
+        const json = JSON.stringify({
+            dia: dia + "-" + mes + "-" + ano,
+            prioridade: formsData.prioridade,
+            hora_inicio: ano + "-" + mes + "-" + dia + " " + formsData.hora_inicio.toLocaleTimeString(),
+            hora_final: ano + "-" + mes + "-" + dia + " " + formsData.hora_final.toLocaleTimeString()
+        })
+        const response = await HerokuApiPostAuth.post('/reuniao/', json);
+        // dispatch({ type: MARCAR_REUNIAO, payload: response.data }) //mudar pra isso pra melhorar a perfomance
+        await dispatch(fetchReunioes())
+    
+    } catch (error) {
+        alert(error.message)
+    } finally {
+        RootNavigation.navigate('Agenda');
+    };
 };
-
-
 
 export const openPrioridadesModal = () => (dispatch) => {
     dispatch({ type: SHOW_PRIORIDADES_MODAL, payload: true })

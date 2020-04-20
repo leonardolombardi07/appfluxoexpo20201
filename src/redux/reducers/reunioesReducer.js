@@ -1,7 +1,5 @@
 import { 
-    
     GET_REUNIOES, 
-    EDIT_FORMS_DATA, 
     MARCAR_REUNIAO, 
     SHOW_PRIORIDADES_MODAL 
 } from '../actions/types';
@@ -9,13 +7,6 @@ import {
 
 const initialState = {
     reunioes: {},
-    formsData: {
-        titulo: '',
-        dia: '',
-        prioridade: 1,
-        hora_inicio: '',
-        hora_final: ''
-    },
     isPrioridadesModalOpen: false
 };
 
@@ -26,11 +17,6 @@ export default function (state = initialState, action) {
                 ...state,
                 reunioes: action.payload
             };
-        case EDIT_FORMS_DATA:
-            return {
-                ...state,
-                formsData: action.payload
-            } //consertar
         case MARCAR_REUNIAO:
             return {
                 ...state

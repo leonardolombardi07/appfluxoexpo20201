@@ -8,6 +8,5 @@ export const CHANGE_PLANTAO_STATUS = 'CHANGE_PLANTAO_STATUS';
 
 // ReunioesFlow action types
 export const GET_REUNIOES = 'GET_REUNIOES';
-export const EDIT_FORMS_DATA = 'EDIT_FORMS_DATA';
 export const MARCAR_REUNIAO = 'MARCAR_REUNIAO';
 export const SHOW_PRIORIDADES_MODAL = 'SHOW_PRIORIDADES_MODAL';

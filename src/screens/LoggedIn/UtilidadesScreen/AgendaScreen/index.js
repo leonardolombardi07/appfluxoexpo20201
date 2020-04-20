@@ -10,7 +10,6 @@ import PrioridadesModal from '../../../../components/PrioridadesModal';
 import PlusButton from '../../../../components/PlusButton';
 import { connect } from 'react-redux';
 import { fetchReunioes, marcarReuniao, closePrioridadesModal } from '../../../../redux/actions/reunioesActions';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const AgendaScreen = (props) => {
