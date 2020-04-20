@@ -22,8 +22,16 @@ const AgendaScreen = (props) => {
     };
 
     useEffect(() => {
-        props.fetchReunioes();
-    },[])
+        setTimeout(() => {
+            props.fetchReunioes()}, 1000)
+    },[]);
+
+    let now = new Date();
+    Date.prototype.addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days)
+        return date
+    };
 
     return (
         <View style={styles.agendaContainer}>
@@ -34,11 +42,13 @@ const AgendaScreen = (props) => {
             renderEmptyDate={renderEmptyDate}
             // renderEmptyData={renderEmptyData}
             renderKnob={renderKnob}
-            selected={new Date()}
+            selected={now}
             onRefresh={handleRefresh}
             refreshing={isRefreshing}
-            pastScrollRange={3}
-            futureScrollRange={3}
+            minDate={now.addDays(-60)}
+            maxDate={now.addDays(60)}
+            // pastScrollRange={3}
+            // futureScrollRange={3}
             theme={{
                 "stylesheet.agenda.main": {
                     knobContainer: {
