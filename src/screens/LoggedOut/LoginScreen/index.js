@@ -23,7 +23,7 @@ const LoginScreen = (props) => {
       if (resposta === "erro") {
         setErrorMessage("NÃO É POSSÍVEL LOGAR")
       };
-    }
+    };
 
     return (
       <KeyboardAvoidingView behavior='height' style={styles.container}>
@@ -65,7 +65,7 @@ const LoginScreen = (props) => {
             <TouchableOpacity style={styles.buttonContainerForm}>
               <Text
               style={styles.buttonTextForm}
-              onPress={handleSignInPress}
+              onPress={() => handleSignInPress({ email, password})}
               >
                 Login
               </Text>

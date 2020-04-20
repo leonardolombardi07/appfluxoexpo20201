@@ -3,7 +3,7 @@ import { TRY_LOCAL_SIGN_IN, SIGN_IN, SIGN_OUT } from '../actions/types';
 const initialState = {
     loadingAccessToken: true,
     access_token: null,
-    refresh_token: null, 
+    refresh_token: null,
 }
 
 export default function (state = initialState, action) {
