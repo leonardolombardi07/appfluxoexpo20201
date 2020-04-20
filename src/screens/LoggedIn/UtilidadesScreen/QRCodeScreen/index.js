@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    return { statusPlantao: state.plantaoData };
+    return { statusPlantao: state.plantaoData.statusPlantao };
 };
 
 export default connect(

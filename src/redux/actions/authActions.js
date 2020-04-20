@@ -11,8 +11,7 @@ export const tryLocalSignIn = () => async (dispatch) => {
            const response = await HerokuApiPost.post(endPoint);
            await AsyncStorage.setItem('access_token', response.data.access_token);
            await AsyncStorage.setItem('refresh_token', response.data.refresh_token);
-           
-
+           console.log(response.data.access_token)
            dispatch({ 
                type: TRY_LOCAL_SIGN_IN,
                payload: {

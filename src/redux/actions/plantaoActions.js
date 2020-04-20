@@ -10,12 +10,12 @@ import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation
 
 
 export const checkPlantaoStatus = () => async (dispatch) => {
-    alert("CheckPlantaoStatus foi chamada")
+    // alert("CheckPlantaoStatus foi chamada")
     const currentTime = new Date(); //Verficar horario atual (convert newDate to minutes)
     try {
         if (currentTime.getMinutes() > 20 && currentTime.getMinutes() < 50) {
             // If entre 20 e 50 minutos, statusPlantao = null
-            alert("Dispatch null. Não se pode abrir nem fechar plantões entre x:20 e x:50")
+            // alert("Dispatch null. Não se pode abrir nem fechar plantões entre x:20 e x:50")
             dispatch({ type: CHANGE_PLANTAO_STATUS, payload: null })
         } else {
             // Else (minutos entre 0-20 ou 50-60)
@@ -25,7 +25,7 @@ export const checkPlantaoStatus = () => async (dispatch) => {
             const horarios = [];
             response.data.forEach((objeto) => {
                 if (objeto.usuario[0].user_id == user_id) {
-                    if (objeto.status === 'fechado') { // Se o plantao já estiver fechado
+                    if (objeto.status === 'Fechado') { // Se o plantao já estiver fechado
                         dispatch({ type: CHANGE_PLANTAO_STATUS, payload: 'fechado' })
                     } else {
                         horarios.push(

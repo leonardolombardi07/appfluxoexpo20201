@@ -37,8 +37,23 @@ const AgendaScreen = (props) => {
             selected={new Date()}
             onRefresh={handleRefresh}
             refreshing={isRefreshing}
-            pastScrollRange={1}
-            futureScrollRange={1}
+            pastScrollRange={3}
+            futureScrollRange={3}
+            theme={{
+                "stylesheet.agenda.main": {
+                    knobContainer: {
+                        // marginVertical: 2,
+                        backgroundColor: 'white'
+                    },
+                    headerContainer: {
+                        backgroundColor:'red',
+                        // overflow: 'hidden',
+                        justifyContent: 'flex-start',
+                        height: '100%',
+                        width: '100%'
+                    },
+                }
+            }}
             />
 
             <PlusButton onPress={() => props.navigation.navigate('MarcarReuniaoScreen')}/>
