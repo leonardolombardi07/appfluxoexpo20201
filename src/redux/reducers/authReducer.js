@@ -1,9 +1,10 @@
-import { TRY_LOCAL_SIGN_IN, SIGN_IN, SIGN_OUT } from '../actions/types';
+import { TRY_LOCAL_SIGN_IN, SIGN_IN, SIGN_OUT, ADD_ERROR } from '../actions/types';
 
 const initialState = {
     loadingAccessToken: true,
     access_token: null,
     refresh_token: null,
+    loginErrorMessage: null
 }
 
 export default function (state = initialState, action) {
@@ -26,6 +27,11 @@ export default function (state = initialState, action) {
                 ...state,
                 access_token: null, 
                 refresh_token: null,
+            };
+        case ADD_ERROR:
+            return {
+                ...state,
+                loginErrorMessage: action.payload
             };
         default:
             return state;

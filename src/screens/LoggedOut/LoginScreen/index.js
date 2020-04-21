@@ -7,22 +7,23 @@ import {
     Text,
     Image,
     KeyboardAvoidingView,
-    SafeAreaView
+    SafeAreaView,
+    ActivityIndicator
   } from 'react-native';
 import { connect } from 'react-redux';
 import { signIn } from '../../../redux/actions/authActions';
 import { screenWidth, screenHeight } from '../../../constants/dimensions';
+import { FontAwesome } from '@expo/vector-icons';
 
 const LoginScreen = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSignInPress = async ({ email, password }) => {
-      const resposta = await props.signIn({ email, password });
-      if (resposta === "erro") {
-        setErrorMessage("NÃO É POSSÍVEL LOGAR")
-      };
+      setIsLoading(true);
+      await props.signIn({ email, password });
+      setIsLoading(false)
     };
 
     return (
@@ -36,7 +37,9 @@ const LoginScreen = (props) => {
         
         <SafeAreaView styles={styles.formContainer}>
           <View style={ styles.containerForm}>
-            <View style={styles.container2Form}>   
+            <View style={styles.container2Form}>
+         
+              <FontAwesome name="user" style={styles.iconStyle} />  
               <TextInput
                 style={styles.inputForm}
                 placeholder="Usuário (Podio)"
@@ -47,11 +50,14 @@ const LoginScreen = (props) => {
                 returnKeyType="next"
                 keyboardAppearance="dark"
               />
+  
+      
             </View>
             
             <View style={styles.container2Form}>
+              <FontAwesome name="asterisk" style={styles.iconStyle} />  
               <TextInput
-                style={styles.inputForm}
+                style={styles.input2Form}
                 placeholder="Senha (Podio)"
                 onChangeText={value => setPassword(value)}
                 placeholderTextColor="#d2dae2"
@@ -62,21 +68,28 @@ const LoginScreen = (props) => {
               />
             </View>
 
-            <TouchableOpacity style={styles.buttonContainerForm}>
-              <Text
-              style={styles.buttonTextForm}
-              onPress={() => handleSignInPress({ email, password})}
-              >
-                Login
-              </Text>
-            </TouchableOpacity>
+            <View style={styles.errorMessageContainer}>
             {
-              errorMessage === null ? null :
-              <Text>{errorMessage}</Text>
+              props.authData.loginErrorMessage === null ?
+              null : <Text style={styles.errorMessageStyle}>{props.authData.loginErrorMessage}</Text>
             }
+            </View>
 
-            <TouchableOpacity >
-                <Text>
+            <TouchableOpacity style={styles.buttonContainerForm} activeOpacity={2}>
+              { isLoading === true ? 
+                <ActivityIndicator size="small"/> : 
+                <Text
+                  style={styles.buttonTextForm}
+                  onPress={() => handleSignInPress({ email, password})}
+                >
+                  Login
+                </Text>}
+       
+            </TouchableOpacity>
+
+
+            <TouchableOpacity onPress={() => props.navigation.navigate('ResetPasswordScreen')}>
+                <Text style={styles.linkTextStyle}>
                     Esqueci minha senha
                 </Text>
             </TouchableOpacity>
@@ -129,33 +142,65 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingTop: screenHeight * 0.026,
     paddingHorizontal: screenHeight * 0.026,
-    bottom: screenHeight * 0.026
+    bottom: screenHeight * 0.026,
   },
 
   container2Form: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "white",
-    marginBottom: screenHeight * 0.012
+    flexDirection: 'row',
+    paddingLeft: screenWidth * 0.02,
+    alignItems: 'center'
   },
-
+  iconStyle: {
+    color: "rgb(243,131,63)",
+    fontSize: 23
+  },
   inputForm: {
     height: screenHeight * 0.052,
     fontSize: screenWidth * 0.04,
     color: "#FFF",
-    left: screenWidth * 0.04
+    width: '89%',
+    marginLeft: 20
+  },
+  input2Form: {
+    height: screenHeight * 0.052,
+    fontSize: screenWidth * 0.04,
+    color: "#FFF",
+    width: '89%',
+    marginLeft: 15
   },
 
   buttonContainerForm: {
     backgroundColor: "rgb(243,131,63)",
     paddingVertical: screenHeight * 0.01,
     borderRadius: screenHeight * 0.005,
+    height: screenHeight * 0.057,
+    justifyContent: 'center'
   },
 
   buttonTextForm: {
-    fontSize: screenHeight * 0.028,
+    fontSize: screenHeight * 0.025,
     textAlign: "center",
     fontWeight: "bold",
-    color: "white"
+    color: "white",
+    
   },
+  errorMessageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: screenHeight * 0.05
+  },
+  errorMessageStyle: {
+    color: '#ED2939',
+    fontSize: screenHeight * 0.018,
+  },
+  linkTextStyle: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: screenHeight * 0.022,
+    marginTop: screenHeight * 0.02,
+    marginBottom: screenHeight * 0.025
+  }
 
 });

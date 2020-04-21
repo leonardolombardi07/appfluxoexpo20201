@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, TRY_LOCAL_SIGN_IN } from './types';
+import { SIGN_IN, SIGN_OUT, TRY_LOCAL_SIGN_IN, ADD_ERROR } from './types';
 import { HerokuApiPost } from '../../apis/HerokuApi';
 import { AsyncStorage } from 'react-native';
 import * as RootNavigation from '../../routes/navigationFunctions/RootNavigation';
@@ -39,7 +39,6 @@ export const tryLocalSignIn = () => async (dispatch) => {
 }
 
 export const signIn = ({ email, password }) => async (dispatch) => {
-    console.log(email, password)
     try {
         const json = JSON.stringify({ email: email, password: password });
         const response = await HerokuApiPost.post ('/auth/', json);
@@ -55,8 +54,10 @@ export const signIn = ({ email, password }) => async (dispatch) => {
         RootNavigation.navigate('Home')
 
     } catch (error) {
-        alert(error.message);
-        return "erro";
+        dispatch({
+            type: ADD_ERROR,
+            payload: "Infelizmente não foi possível efetuar o Login"
+        });
     };
 
 }
@@ -65,4 +66,4 @@ export const signOut = () => async (dispatch) => {
     await AsyncStorage.removeItem("access_token");
     await AsyncStorage.removeItem("refresh_token");
     dispatch({ type: SIGN_OUT })
-}
+};
