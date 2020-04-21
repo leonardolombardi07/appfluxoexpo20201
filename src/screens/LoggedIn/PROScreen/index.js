@@ -12,7 +12,6 @@ import Spacer from '../../../components/Spacer';
 export default function PROScreen(props) {
   const [results, errorMessage] = useApiData('PRO');
 
-
   if (!results && !errorMessage) {
     return <LoadingIndicator />
   };

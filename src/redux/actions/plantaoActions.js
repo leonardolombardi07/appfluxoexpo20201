@@ -16,7 +16,6 @@ export const checkPlantaoStatus = () => async (dispatch) => {
     let statusPlantao = null;
     let canChangePlantaoStatus = null;
 
-
     
     if (currentTime.getMinutes() > 20 && currentTime.getMinutes() < 50) {
         if (!token) {
@@ -58,19 +57,20 @@ export const checkPlantaoStatus = () => async (dispatch) => {
             };
         };
     }
-    if (currentTime.getMinutes() < 20 || currentTime.getMinutes() > 50) {
+    else if (currentTime.getMinutes() < 20 || currentTime.getMinutes() > 50) {
         canChangePlantaoStatus = false;
         if (!token) {
             statusPlantao = 'Fechado';
 
-        };
-        if (token) {
+        }
+        else if (token) {
             statusPlantao = 'Aberto';
         
         };
     };
     
     console.log(statusPlantao, canChangePlantaoStatus)
+
     dispatch({ 
         type: CHANGE_PLANTAO_STATUS,
         payload: {
@@ -116,6 +116,7 @@ export const abrirPlantao = (qrCodeURL) => async (dispatch) => {
             const json = JSON.stringify({ primeiro_plantao: postID, segundo_plantao: null }) // lidar com marcação de dois plantoes
             const response = await HerokuApiPostAuth.post('/plantao/', json);
             await AsyncStorage.setItem("plantao_id", String(response.data.item_id));
+            console.log(json)
 
             dispatch({ 
                 type: CHANGE_PLANTAO_STATUS, 
