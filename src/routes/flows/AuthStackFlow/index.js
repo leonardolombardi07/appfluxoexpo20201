@@ -25,7 +25,7 @@ export const AuthStackFlow = () => {
               headerTitle: 'Recuperação de Senha',
               headerTintColor: '#000000',
               headerStyle: {
-                backgroundColor: '#4A87B6'
+                backgroundColor: '#4A87B6',
               }
             }}
           />

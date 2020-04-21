@@ -1,21 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-export default function ResetPasswordScreeen (props) {
-
-  return (
-    <View style={styles.container}>
-      <Text>ResetPasswordScreeen</Text>
-    </View>
-  );
-}
+export default function ResetPasswordScreen() {
+    return (
+      <WebView source={{ uri: 'https://podio.com/user/recover/' }} style={styles.webViewContainer} />
+    );
+};
 
 const styles = StyleSheet.create({
-  container: {
+  webViewContainer: {
     flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-});
-
+    alignItems: 'center'
+  }
+})
