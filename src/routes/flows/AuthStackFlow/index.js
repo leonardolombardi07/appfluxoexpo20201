@@ -12,9 +12,23 @@ export const AuthStackFlow = () => {
     return (
         <NavigationContainer ref={navigationRef}>
         <StatusBar backgroundColor="orange" barStyle='dark-content' />
-        <AuthStack.Navigator screenOptions={{headerShown: false}}>
-          <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
-          <AuthStack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
+        <AuthStack.Navigator>
+          <AuthStack.Screen 
+            name="LoginScreen" 
+            component={LoginScreen} 
+            options={{ headerShown: false }}
+          />
+          <AuthStack.Screen 
+            name="ResetPasswordScreen" 
+            component={ResetPasswordScreen} 
+            options={{ 
+              headerTitle: 'Recuperação de Senha',
+              headerTintColor: '#000000',
+              headerStyle: {
+                backgroundColor: '#4A87B6'
+              }
+            }}
+          />
         </AuthStack.Navigator>
         </NavigationContainer>
     );
