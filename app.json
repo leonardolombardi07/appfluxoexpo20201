@@ -1,7 +1,9 @@
+
+
 {
   "expo": {
-    "name": "AppFluxoExpo20201",
-    "slug": "appfluxoexpo20201",
+    "name": "App Fluxo",
+    "slug": "appfluxo20201",
     "platforms": [
       "ios",
       "android",
@@ -9,9 +11,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/deploy/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/deploy/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,7 +24,16 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.fluxoconsultoria.ufrj",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.fluxoconsultoria.ufrj",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA"
+      ]
     }
   }
 }

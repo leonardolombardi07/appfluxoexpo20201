@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 import { editFormsData } from '../redux/actions/reunioesActions';
 
 const DatePicker = (props) => {
-    console.log(props.formsData)
     const now = new Date();
     const initialState =  
         (props.mode === 'date') ? 

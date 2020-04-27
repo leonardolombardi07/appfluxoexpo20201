@@ -69,7 +69,7 @@ export const checkPlantaoStatus = () => async (dispatch) => {
         };
     };
     
-    console.log(statusPlantao, canChangePlantaoStatus)
+    // console.log(statusPlantao, canChangePlantaoStatus)
 
     dispatch({ 
         type: CHANGE_PLANTAO_STATUS,

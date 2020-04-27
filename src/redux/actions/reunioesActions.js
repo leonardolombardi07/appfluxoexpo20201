@@ -23,7 +23,7 @@ export const fetchReunioes = () => async (dispatch) => {
 
 export const marcarReuniao = (formsData) => async (dispatch) => {
     // alert("marcarReuniao foi chamada")
-    console.log("MARCAR REUNIAO")
+    // console.log("MARCAR REUNIAO")
     try {
         let dia = formsData.dia.getDate();
         let mes = formsData.dia.getMonth() + 1;
@@ -43,7 +43,7 @@ export const marcarReuniao = (formsData) => async (dispatch) => {
             hora_inicio: ano + "-" + mes + "-" + dia + " " + formsData.hora_inicio.toLocaleTimeString(),
             hora_final: ano + "-" + mes + "-" + dia + " " + formsData.hora_final.toLocaleTimeString()
         })
-        console.log(json)
+        // console.log(json)
         const response = await HerokuApiPostAuth.post('/reuniao/', json);
         dispatch({ type: MARCAR_REUNIAO, payload: response.data }) //mudar pra isso pra melhorar a perfomance
         await dispatch(fetchReunioes())

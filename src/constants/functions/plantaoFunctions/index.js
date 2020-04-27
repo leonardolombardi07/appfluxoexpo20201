@@ -6,8 +6,6 @@ export const convertHourToPlantaoId = () => {
     let hora_atual = horario_atual.getHours();
     let hora_plantao;
     const minutos_atual = horario_atual.getMinutes();
-    console.log(hora_atual)
-
     if (hora_atual < 6 || hora_atual >= 17 || (hora_atual === 16 && minutos_atual >= 20)) {
         return "Não é possível abrir um plantão antes de 6AM ou depois de 17AM"
     }
