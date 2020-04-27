@@ -1,25 +1,27 @@
-import React from 'react';
+import React from "react";
 //Redux
-import { Provider } from 'react-redux';
-import store from './src/redux/store';
-import { useSelector } from 'react-redux';
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
+import { useSelector } from "react-redux";
 //Navigation Flows
-import SplashScreen from './src/screens/LoggedOut/SplashScreen';
-import { AuthStackFlow } from './src/routes/flows/AuthStackFlow';
-import { DrawerFlow } from './src/routes/flows/DrawerFlow';
+import SplashScreen from "./src/screens/LoggedOut/SplashScreen";
+import { AuthStackFlow } from "./src/routes/flows/AuthStackFlow";
+import { DrawerFlow } from "./src/routes/flows/DrawerFlow";
 
 const AppNavigator = () => {
-  const { loadingAccessToken, access_token } = useSelector(state => state.authData);
+  const { loadingAccessToken, access_token } = useSelector(
+    (state) => state.authData
+  );
 
   if (loadingAccessToken) {
-    return <SplashScreen />
-  };
-  
+    return <SplashScreen />;
+  }
+
   if (!access_token) {
-    return <AuthStackFlow />
-  };
-  
-  return <DrawerFlow />
+    return <AuthStackFlow />;
+  }
+
+  return <DrawerFlow />;
 };
 
 export default function App() {
@@ -27,5 +29,5 @@ export default function App() {
     <Provider store={store}>
       <AppNavigator />
     </Provider>
-  )
+  );
 }
