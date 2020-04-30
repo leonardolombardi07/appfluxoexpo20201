@@ -31,7 +31,7 @@ const LoginScreen = (props) => {
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={require('../../../assets/logos/logo-fluxo.png')}
+            source={require('../../../assets/logos/LogoFluxo.png')}
           />
         </View>
         

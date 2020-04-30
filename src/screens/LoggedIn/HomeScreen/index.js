@@ -8,6 +8,8 @@ import TempoSemVender from '../../../components/TempoSemVender';
 import LoadingIndicator from '../../../components/LoadingIndicator';
 import ShowError from '../../../components/ShowError';
 import Spacer from '../../../components/Spacer';
+import Metas from '../../../components/Metas';
+import AnimatedProgressWheel from 'react-native-progress-wheel';
 
 export default function HomeScreen(props) {
   const [results, errorMessage] = useApiData('HOME');
@@ -40,6 +42,9 @@ export default function HomeScreen(props) {
         <TabelaNPS />
         <Spacer height={0.05} />
         <TempoSemVender tempoSemVender={results.tempo_sem_vender}/>
+        <View>
+          <Metas/>
+        </View>
 
       </ScrollView>
     </View>
@@ -55,6 +60,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
     // justifyContent:'center'
+  },
+  
+  moeda: {
+    flex: 1,
+    backgroundColor: 'red',
+    alignItems: 'center' 
+  },
+
+  npstext: {
+
   }
+
 });
 

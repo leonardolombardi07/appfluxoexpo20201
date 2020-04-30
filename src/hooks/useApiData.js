@@ -10,6 +10,7 @@ export default (coord_name) => {
         const endPoint = convertCoordNameToEndPoint(coord_name);
         try {
             const response = await HerokuApiGetAuth.get(endPoint);
+            
             setResults(response.data)
             setErrorMessage(null);
         } catch (error) {
